@@ -3,6 +3,7 @@ from requests.structures import CaseInsensitiveDict
 import json
 import csv
 import os
+import time
 from datetime import datetime
 
 def removeJsonFile(filePath):
@@ -59,11 +60,14 @@ def getTime():
   return (dt_string)
   
 def main():
+  count = 0
   while True:
     grabVoice()
     grabMessage()
-    time.sleep(600)
-    print("Last update is: " + getTime)
+    for i in tqdm(range(600)):
+      time.sleep(600)
+    print(str(count) + ".  Last update is: " + getTime)
+    count += 1
   
 
 
