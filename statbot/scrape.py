@@ -5,6 +5,8 @@ import csv
 import os
 import time
 from datetime import datetime
+from tqdm import tqdm
+
 
 def removeJsonFile(filePath):
     if os.path.exists(filePath):
@@ -65,7 +67,7 @@ def main():
     grabVoice()
     grabMessage()
     for i in tqdm(range(600)):
-      time.sleep(600)
+      time.sleep(1)
     print(str(count) + ".  Last update is: " + getTime)
     count += 1
   
