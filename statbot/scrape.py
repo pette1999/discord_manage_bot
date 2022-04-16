@@ -3,6 +3,7 @@ from requests.structures import CaseInsensitiveDict
 import json
 import csv
 import os
+from datetime import datetime
 
 def removeJsonFile(filePath):
     if os.path.exists(filePath):
@@ -52,8 +53,19 @@ def grabMessage():
   with open('./data/message.json', 'w', encoding='utf-8') as f:
     json.dump(message, f, ensure_ascii=False, indent=2)
 
+def getTime():
+  now = datetime.now()
+  dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+  return (dt_string)
+  
 def main():
-  grabVoice()
-  grabMessage()
+  while True:
+    grabVoice()
+    grabMessage()
+    time.sleep(600)
+    print("Last update is: " + getTime)
+  
+
 
 main()
+# getTime()
