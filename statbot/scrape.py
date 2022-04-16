@@ -68,9 +68,9 @@ def main():
     grabMessage()
     for i in tqdm(range(600)):
       time.sleep(1)
-    print(str(count) + ".  Last update is: " + getTime)
+    print(str(count) + ".  Last update is: " + getTime())
     f = open("./data/log.txt", "a")
-    f.write(str(count) + ".  Last update is: " + getTime)
+    f.write(str(count) + ".  Last update is: " + getTime())
     f.close()
     count += 1
   
