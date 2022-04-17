@@ -1,21 +1,21 @@
 [
   {
     "id": "933525808620896276",
-    "count": 22945,
+    "count": 22999,
     "avatarURL": "a_9ba61498a1f7d2a987506f4c0893120f",
     "membertag": "Yunfei#3014",
     "rank": 1
   },
   {
     "id": "949381622430588968",
-    "count": 14631,
+    "count": 14651,
     "avatarURL": "",
     "membertag": "Yifei#0965",
     "rank": 2
   },
   {
     "id": "513844022033514501",
-    "count": 13651,
+    "count": 13672,
     "avatarURL": "",
     "membertag": "Haoran Zhang#8207",
     "rank": 3
@@ -43,7 +43,7 @@
   },
   {
     "id": "709893068798558328",
-    "count": 8630,
+    "count": 8641,
     "avatarURL": "9270d724cf9d2f3972d3cc7b47800540",
     "membertag": "郭小宇#1132",
     "rank": 7
@@ -57,7 +57,7 @@
   },
   {
     "id": "921366394631761994",
-    "count": 5930,
+    "count": 5949,
     "avatarURL": "https://cdn.discordapp.com/avatars/921366394631761994/cbb92b04b9e52ebeef07b485a28b7dec",
     "membertag": "Its_Jane#4513",
     "rank": 9
@@ -372,30 +372,30 @@
   },
   {
     "id": "482766849717829632",
-    "count": 12,
-    "avatarURL": "79f56322535bd24166421689ade6a4a6",
-    "membertag": "PhantaSpace#8031",
-    "rank": 54
-  },
-  {
-    "id": "318474196277526529",
-    "count": 12,
+    "count": 13,
     "avatarURL": "",
-    "membertag": "kkHu#4112",
-    "rank": 55
+    "membertag": "minkowsky#8031",
+    "rank": 54
   },
   {
     "id": "782778358890758174",
     "count": 12,
     "avatarURL": "",
     "membertag": "BO#3690",
-    "rank": 56
+    "rank": 55
   },
   {
     "id": "862716945194418187",
     "count": 12,
     "avatarURL": "ce2bcf9496a73a7e23a8f88c1aa8127b",
     "membertag": "Sandra Cai#3239",
+    "rank": 56
+  },
+  {
+    "id": "318474196277526529",
+    "count": 12,
+    "avatarURL": "",
+    "membertag": "kkHu#4112",
     "rank": 57
   },
   {
@@ -469,101 +469,108 @@
     "rank": 67
   },
   {
-    "id": "958943156500582442",
-    "count": 2,
-    "avatarURL": "",
-    "membertag": "Fly Eagle#8615",
-    "rank": 68
-  },
-  {
     "id": "916042769649254470",
     "count": 2,
     "avatarURL": "",
     "membertag": "jacky1120#9774",
-    "rank": 69
+    "rank": 68
   },
   {
     "id": "483053626781204500",
     "count": 2,
     "avatarURL": "75adc23d60aebbf0478e885651cc87e3",
     "membertag": "Yang#3222",
-    "rank": 70
+    "rank": 69
   },
   {
     "id": "678815510493790208",
     "count": 2,
     "avatarURL": "bd2130fda74c67797bd18b5723561d99",
     "membertag": "zczczc | 财神道#8319",
+    "rank": 70
+  },
+  {
+    "id": "958943156500582442",
+    "count": 2,
+    "avatarURL": "",
+    "membertag": "Fly Eagle#8615",
     "rank": 71
-  },
-  {
-    "id": "424471873741520926",
-    "count": 1,
-    "avatarURL": "",
-    "membertag": "seanzzzz#3309",
-    "rank": 72
-  },
-  {
-    "id": "807018828978192394",
-    "count": 1,
-    "avatarURL": "",
-    "membertag": "alexk#0194",
-    "rank": 73
-  },
-  {
-    "id": "751103650369241090",
-    "count": 1,
-    "avatarURL": "",
-    "membertag": "Demon44#9960",
-    "rank": 74
-  },
-  {
-    "id": "931764580638674954",
-    "count": 1,
-    "avatarURL": "c82b3fa769ed6e6ffdea579381ed5f5c",
-    "membertag": "Lololo#9329",
-    "rank": 75
-  },
-  {
-    "id": "797405840691822613",
-    "count": 1,
-    "avatarURL": "",
-    "membertag": "Daniel_PK#6045",
-    "rank": 76
   },
   {
     "id": "960693832951947335",
     "count": 1,
     "avatarURL": "",
     "membertag": "jimrockey#0351",
-    "rank": 77
+    "rank": 72
   },
   {
     "id": "953474129963667506",
     "count": 1,
     "avatarURL": "eee0fd600efde4f117a271aed9aaf8f5",
     "membertag": "Martin D.#4922",
-    "rank": 78
+    "rank": 73
   },
   {
     "id": "957116069749866557",
     "count": 1,
     "avatarURL": "",
     "membertag": "longlee#1540",
-    "rank": 79
+    "rank": 74
   },
   {
     "id": "964592648298065940",
     "count": 1,
     "avatarURL": "",
     "membertag": "jjjojojoy#9548",
-    "rank": 80
+    "rank": 75
   },
   {
     "id": "801233891200729089",
     "count": 1,
     "avatarURL": "",
     "membertag": "Yulu#0478",
+    "rank": 76
+  },
+  {
+    "id": "803541361768398849",
+    "count": 1,
+    "avatarURL": "",
+    "membertag": "Mark Pi#2889",
+    "rank": 77
+  },
+  {
+    "id": "424471873741520926",
+    "count": 1,
+    "avatarURL": "",
+    "membertag": "seanzzzz#3309",
+    "rank": 78
+  },
+  {
+    "id": "807018828978192394",
+    "count": 1,
+    "avatarURL": "",
+    "membertag": "alexk#0194",
+    "rank": 79
+  },
+  {
+    "id": "751103650369241090",
+    "count": 1,
+    "avatarURL": "",
+    "membertag": "Demon44#9960",
+    "rank": 80
+  },
+  {
+    "id": "931764580638674954",
+    "count": 1,
+    "avatarURL": "c82b3fa769ed6e6ffdea579381ed5f5c",
+    "membertag": "Lololo#9329",
     "rank": 81
+  },
+  {
+    "id": "797405840691822613",
+    "count": 1,
+    "avatarURL": "",
+    "membertag": "Daniel_PK#6045",
+    "rank": 82
   }
 ]
