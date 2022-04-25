@@ -40,7 +40,8 @@ module.exports = class UserInfoCommand extends Commando.Command {
             const user = message.mentions.users.first() || message.member.user
             const member = guild.members.cache.get(user.id)
 
-            console.log(member)
+            // console.log(member)
+            console.log("Invite: ")
             console.log(inviteCounter[user.tag])
 
             const embed = new MessageEmbed()
@@ -48,9 +49,6 @@ module.exports = class UserInfoCommand extends Commando.Command {
                 .addFields({
                     name: 'User tag',
                     value: user.tag,
-                }, {
-                    name: 'Is bot',
-                    value: user.bot,
                 }, {
                     name: 'Nickname',
                     value: member.nickname || 'None',
