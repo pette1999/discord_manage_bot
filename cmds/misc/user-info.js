@@ -72,6 +72,9 @@ module.exports = class UserInfoCommand extends Commando.Command {
                 }, {
                     name: 'Voice Count',
                     value: voiceCounter[user.tag],
+                }, {
+                    name: 'Score',
+                    value: parseInt(inviteCounter[user.tag]) * 3 + parseInt(voiceCounter[user.tag]) * 0.01 + parseInt(messageCounter[user.tag]) * 0.05,
                 })
 
             channel.send(embed)
