@@ -26,7 +26,7 @@ module.exports = class CheckinCommand extends Commando.Command {
   }
 
   async run(message) {
-    const { guild, member } = message
+    const { guild, member, channel } = message
     const { id } = member
     const user = message.mentions.users.first() || message.member.user
     let today = new Date().toISOString().slice(0, 10)
@@ -38,6 +38,27 @@ module.exports = class CheckinCommand extends Commando.Command {
     }
 
     console.log('Fetching from mongo')
+
+    try {
+      const messages = await channel.messages.fetch(0)
+
+      let i = 0
+      const filtered = []
+      messages.filter((m) => {
+        if (m.author.id === id && 1 > i) {
+          filtered.push(m)
+          i++
+        }
+      })
+      await channel.bulkDelete(filtered, true).then(messages => {
+        console.log("message deleted")
+      })
+    } catch (err) {
+      console.error(err)
+      channel.send(
+        '```css\n[ERROR] ' + err.code + ': [' + err.message + ']\n```'
+      )
+    }
 
     await mongo().then(async (mongoose) => {
       try {

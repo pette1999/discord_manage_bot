@@ -2,7 +2,7 @@ const Commando = require('discord.js-commando')
 const mongo = require('@util/mongo')
 const eventTimeframeSchema = require('@schemas/event-timeframe-schema')
 
-module.exports = class KickCommand extends Commando.Command {
+module.exports = class eventTimeCommand extends Commando.Command {
   constructor(client) {
     super(client, {
       name: 'eventtime',
