@@ -18,9 +18,10 @@ module.exports = class eventTimeCommand extends Commando.Command {
   async run(message, args) {
     await mongo().then(async (mongoose) => {
       try {
-        if (args.length == 2) {
-          const startTime = new Date(args[0]).getTime()
-          const endTime = new Date(args[1]).getTime()
+        if (args.length == 3) {
+          const startTime = new Date(args[1]).getTime()
+          const endTime = new Date(args[2]).getTime()
+          const code = args[0]
           if (endTime <= startTime) {
             message.reply("You have entered a wrong command!")
             return
@@ -28,13 +29,14 @@ module.exports = class eventTimeCommand extends Commando.Command {
           const obj = {
             start: startTime,
             end: endTime,
+            code: code,
           }
           const startDate = new Date(startTime).toLocaleString('en-US')
           const endDate = new Date(endTime).toLocaleString('en-US')
-          await eventTimeframeSchema.findOneAndUpdate({ '_id':'626789e3a8bd69d76483798a'}, obj, {
+          await eventTimeframeSchema.findOneAndUpdate({ 'code':'0880'}, obj, {
             upsert: true,
           })
-          const reply = "Event time updated!\nEvent starts at " + startDate + "\nEvent ends at " + endDate
+          const reply = "Event time updated!\nEvent starts at " + startDate + "\nEvent ends at " + endDate + "\nEvent code is " + code
           message.reply(reply)
         } else {
           message.reply("You have entered a wrong command! ")

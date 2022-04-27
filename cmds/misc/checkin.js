@@ -22,14 +22,24 @@ module.exports = class CheckinCommand extends Commando.Command {
       group: 'misc',
       memberName: 'checkin',
       description: 'Check in for events',
+      argsType: 'single',
+      argsCount: 1,
     })
   }
 
-  async run(message) {
+  async run(message, args) {
     const { guild, member, channel } = message
     const { id } = member
     const user = message.mentions.users.first() || message.member.user
     let today = new Date().toISOString().slice(0, 10)
+    const eventCode = args
+    console.log("ARGS: ", args)
+
+    // if input without code, unable to check in
+    if (args === '') {
+      message.reply("Wrong command, please add a code to the command to Check-In :wink:")
+      return
+    }
 
     if (checkinCache.includes(id)) {
       console.log('Returning from cache')
@@ -68,10 +78,18 @@ module.exports = class CheckinCommand extends Commando.Command {
         const attendanceArr = await attendanceSchema.findOne({ userId: id }, { "attendance": 1, "_id": 0 }).distinct('attendance')
         console.log(attendanceArr)
 
-        const eventStartTime = await eventTimeframeSchema.findOne({ '_id': '626789e3a8bd69d76483798a' }, { "start": 1, "_id": 0 }).distinct('start')
-        const eventEndTime = await eventTimeframeSchema.findOne({ '_id': '626789e3a8bd69d76483798a' }, { "end": 1, "_id": 0 }).distinct('end')
+        const eventCodes = await eventTimeframeSchema.find().distinct('code')
+        const eventStartTime = await eventTimeframeSchema.findOne({ 'code': eventCode }, { "start": 1, "_id": 0 }).distinct('start')
+        const eventEndTime = await eventTimeframeSchema.findOne({ 'code': eventCode }, { "end": 1, "_id": 0 }).distinct('end')
         console.log("Start: ", eventStartTime[0])
         console.log("End: ", eventEndTime[0])
+        console.log(eventCodes)
+
+        if (!(eventCode in eventCodes)) {
+          // the event code does not exist in the current database
+          message.reply("Sorry, your event code does not seems correct :confused:")
+          return
+        }
 
         if (!(today in attendanceArr)) {
           attendanceArr.push(today)
@@ -114,7 +132,7 @@ module.exports = class CheckinCommand extends Commando.Command {
         })
 
         checkinCache.push(id)
-        message.reply("You have checked in for today's event!")
+        message.reply("You have checked in for today's event!:grinning:")
       } finally {
         mongoose.connection.close()
       }

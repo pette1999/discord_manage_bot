@@ -10,6 +10,7 @@ const eventTimeframeSchema = mongoose.Schema(
   {
     start: reqString,
     end: reqString,
+    code: reqString,
   }
 )
 
