@@ -100,19 +100,19 @@ module.exports = class UserInfoCommand extends Commando.Command {
                     value: member.roles.cache.size - 1,
                 }, {
                     name: 'Invitation',
-                    value: inviteCounter[user.tag],
+                    value: inviteCounter[user.tag] || 0,
                 }, {
                     name: 'Attendance',
-                    value: attendanceTimes,
+                    value: attendanceTimes || 0,
                 }, {
                     name: 'Message Count',
-                    value: messageCounter[user.tag],
+                    value: messageCounter[user.tag] || 0,
                 }, {
                     name: 'Voice Count (min)',
-                    value: voiceCounter[user.tag],
+                    value: voiceCounter[user.tag] || 0,
                 }, {
                     name: 'Beta Reputation Points',
-                    value: score,
+                    value: score || 0,
                 })
 
             channel.send(embed)
