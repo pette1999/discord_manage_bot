@@ -6,11 +6,6 @@ const reqString = {
   required: true,
 }
 
-const reqBool = {
-  type: Boolean,
-  required: true,
-}
-
 const reqNumber = {
   type: Number,
   required: true,
@@ -21,9 +16,9 @@ const socialMediaPostSchema = mongoose.Schema(
     userId: reqString,
     userName: reqString,
     postLink: reqString,
-    approved: reqBool,
-    hasRewarded: reqBool,
-    hasBonus: reqBool,
+    approved: reqNumber,
+    hasRewarded: reqNumber,
+    hasBonus: reqNumber,
     like: reqNumber,
     comment: reqNumber,
     share: reqNumber,
