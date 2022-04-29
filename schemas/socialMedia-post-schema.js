@@ -11,7 +11,12 @@ const reqBool = {
   required: true,
 }
 
-const soialMediaPostSchema = mongoose.Schema(
+const reqNumber = {
+  type: Number,
+  required: true,
+}
+
+const socialMediaPostSchema = mongoose.Schema(
   {
     userId: reqString,
     userName: reqString,
@@ -19,10 +24,13 @@ const soialMediaPostSchema = mongoose.Schema(
     approved: reqBool,
     hasRewarded: reqBool,
     hasBonus: reqBool,
+    like: reqNumber,
+    comment: reqNumber,
+    share: reqNumber,
   },
   {
     timestamps: true,
   }
 )
 
-module.exports = mongoose.model('post', soialMediaPostSchema)
+module.exports = mongoose.model('post', socialMediaPostSchema)
