@@ -32,7 +32,7 @@ module.exports = class CheckinCommand extends Commando.Command {
     const { id } = member
     const user = message.mentions.users.first() || message.member.user
     let today = new Date().toISOString().slice(0, 10)
-    const eventCode = args
+    const eventCode = args.trim()
     console.log("ARGS: ", args)
 
     // if input without code, unable to check in
@@ -83,13 +83,13 @@ module.exports = class CheckinCommand extends Commando.Command {
         const eventEndTime = await eventTimeframeSchema.findOne({ 'code': eventCode }, { "end": 1, "_id": 0 }).distinct('end')
         console.log("Start: ", eventStartTime[0])
         console.log("End: ", eventEndTime[0])
-        console.log(eventCodes)
+        console.log("Event Codes: ", eventCodes)
 
-        if (!(eventCode in eventCodes)) {
-          // the event code does not exist in the current database
-          message.reply("Sorry, your event code does not seems correct :confused:")
-          return
-        }
+        // if (!(eventCode in eventCodes)) {
+        //   // the event code does not exist in the current database
+        //   message.reply("Sorry, your event code does not seems correct :confused:")
+        //   return
+        // }
 
         if (!(today in attendanceArr)) {
           attendanceArr.push(today)
