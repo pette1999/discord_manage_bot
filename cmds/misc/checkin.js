@@ -85,11 +85,11 @@ module.exports = class CheckinCommand extends Commando.Command {
         console.log("End: ", eventEndTime[0])
         console.log("Event Codes: ", eventCodes)
 
-        // if (!(eventCode in eventCodes)) {
-        //   // the event code does not exist in the current database
-        //   message.reply("Sorry, your event code does not seems correct :confused:")
-        //   return
-        // }
+        if (eventCodes.indexOf(eventCode) == -1) {
+          // the event code does not exist in the current database
+          message.reply("Sorry, your event code does not seems correct :confused:")
+          return
+        }
 
         if (!(today in attendanceArr)) {
           attendanceArr.push(today)
