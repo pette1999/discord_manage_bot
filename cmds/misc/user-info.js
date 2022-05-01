@@ -3,8 +3,8 @@ const Commando = require('discord.js-commando')
 const mongo = require('@util/mongo')
 const attendanceSchema = require('@schemas/attendance-schema')
 const memberScoreSchema = require('@schemas/member-schema')
-let statbot_message = require('../../statbot/data/message.json');
-let statbot_voice = require('../../statbot/data/voice.json')
+let messageSchema = require('@schemas/statbotMessage-schema');
+let voiceSchema = require('@schemas/statbotVoice-schema')
 
 module.exports = class UserInfoCommand extends Commando.Command {
     constructor(client) {
@@ -20,27 +20,25 @@ module.exports = class UserInfoCommand extends Commando.Command {
         const { guild, channel, member } = message
         const { id } = member
         const inviteCounter = {}
-        const messageCounter = {}
-        const voiceCounter = {}
         var attendanceTimes = 0
+        var messageCount = 0
+        var voiceCount = 0
 
         await mongo().then(async(mongoose) => {
             try {
                  // get how many attendance from mongodb
                 const attendanceArr = await attendanceSchema.findOne({ userId: id }, { "attendance": 1, "_id": 0 }).distinct('attendance')
                 attendanceTimes = attendanceArr.length
+                // get message count
+                const messageArr = await messageSchema.findOne({ userId: id })
+                messageCount = parseInt(messageArr['messageCount'])
+                // get voice count
+                const voiceArr = await voiceSchema.findOne({ userId: id })
+                voiceCount = parseInt(voiceArr['voiceCount'])
             } finally {
                 mongoose.connection.close()
             }
         })
-
-        // get message and voice count from statbot
-        for (const m of statbot_message) {
-            messageCounter[m['membertag']] = m['count']
-        }
-        for (const m of statbot_voice) {
-            voiceCounter[m['membertag']] = m['count']
-        }
 
         guild.fetchInvites().then((invites) => {
             invites.forEach((invite) => {
@@ -53,7 +51,7 @@ module.exports = class UserInfoCommand extends Commando.Command {
             })
 
             console.log(inviteCounter)
-            const user = message.mentions.users.first() || message.member.user
+            const user = message.member.user
             const member = guild.members.cache.get(user.id)
             console.log("member: ", user.id)
 
@@ -63,8 +61,8 @@ module.exports = class UserInfoCommand extends Commando.Command {
 
             var score = 0
             typeof inviteCounter[user.tag] != 'undefined' ? score += parseInt(inviteCounter[user.tag]) * 3 : score += 0
-            typeof voiceCounter[user.tag] != 'undefined' ? score += parseInt(voiceCounter[user.tag]) * 0.01 : score += 0
-            typeof messageCounter[user.tag] != 'undefined' ? score += parseInt(messageCounter[user.tag]) * 0.05 : score += 0
+            typeof voiceCount != 'undefined' ? score += parseInt(voiceCount) * 0.01 : score += 0
+            typeof messageCount != 'undefined' ? score += parseInt(messageCount) * 0.05 : score += 0
             typeof attendanceTimes != 'undefined' ? score += parseInt(attendanceTimes) * 2 : score += 0
             score = parseFloat(score).toFixed(2)
 
@@ -106,10 +104,10 @@ module.exports = class UserInfoCommand extends Commando.Command {
                     value: attendanceTimes || 0,
                 }, {
                     name: 'Message Count',
-                    value: messageCounter[user.tag] || 0,
+                    value: messageCount || 0,
                 }, {
                     name: 'Voice Count (min)',
-                    value: voiceCounter[user.tag] || 0,
+                    value: voiceCount || 0,
                 }, {
                     name: 'Beta Reputation Points',
                     value: score || 0,
