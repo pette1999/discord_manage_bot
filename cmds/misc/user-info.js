@@ -3,7 +3,8 @@ const Commando = require('discord.js-commando')
 const mongo = require('@util/mongo')
 const attendanceSchema = require('@schemas/attendance-schema')
 const memberScoreSchema = require('@schemas/member-schema')
-let messageSchema = require('@schemas/statbotMessage-schema');
+const morningSchema = require('@schemas/morning-schema')
+let messageSchema = require('@schemas/statbotMessage-schema')
 let voiceSchema = require('@schemas/statbotVoice-schema')
 
 module.exports = class UserInfoCommand extends Commando.Command {
@@ -35,6 +36,8 @@ module.exports = class UserInfoCommand extends Commando.Command {
                 // get voice count
                 const voiceArr = await voiceSchema.findOne({ userId: id })
                 voiceCount = parseInt(voiceArr['voiceCount'])
+                // get morning count
+                const morningCount = await morningSchema.findOne({ userId: id }).morningCount
             } finally {
                 mongoose.connection.close()
             }
@@ -64,6 +67,7 @@ module.exports = class UserInfoCommand extends Commando.Command {
             typeof voiceCount != 'undefined' ? score += parseInt(voiceCount) * 0.01 : score += 0
             typeof messageCount != 'undefined' ? score += parseInt(messageCount) * 0.05 : score += 0
             typeof attendanceTimes != 'undefined' ? score += parseInt(attendanceTimes) * 2 : score += 0
+            typeof morningCount != 'undefined' ? score += parseInt(morningCount) * 0 : score += 0
             score = parseFloat(score).toFixed(2)
 
             // await mongo().then(async (mongoose) => {

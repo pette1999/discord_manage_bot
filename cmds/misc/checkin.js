@@ -4,7 +4,6 @@ const attendanceSchema = require('@schemas/attendance-schema')
 const eventTimeframeSchema = require('@schemas/event-timeframe-schema')
 
 // Array of member IDs who have checked in in the last 24 hours
-// Resets every 10 minutes
 let checkinCache = []
 
 const clearCache = () => {
@@ -30,7 +29,7 @@ module.exports = class CheckinCommand extends Commando.Command {
   async run(message, args) {
     const { guild, member, channel } = message
     const { id } = member
-    const user = message.mentions.users.first() || message.member.user
+    const user = member.user
     let today = new Date().toISOString().slice(0, 10)
     const eventCode = args.trim()
     console.log("ARGS: ", args)

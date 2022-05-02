@@ -2,6 +2,7 @@ const Commando = require('discord.js-commando')
 const mongo = require('@util/mongo')
 const messageSchema = require('@schemas/statbotMessage-schema')
 const voiceSchema = require('@schemas/statbotVoice-schema')
+const morningSchema = require('@schemas/morning-schema')
 
 module.exports = class eventTimeCommand extends Commando.Command {
   constructor(client) {
@@ -16,17 +17,20 @@ module.exports = class eventTimeCommand extends Commando.Command {
   }
 
   async run(message) {
+    const { member } = message
+    const { id } = member
     await mongo().then(async (mongoose) => {
-      const obj = {
-        userId: '594946541387513858',
-        userName: 'Pettte#6695',
-        voiceCount: '100',
-        voiceRank: '5',
+      try {
+        const count = await morningSchema.findOne({ userId: id })
+        if(count) {
+          const then = new Date(count.updatedAt).getTime()
+          const now = new Date().getTime()
+          console.log("Then: ", new Date(then).getDate())
+          console.log("Now: ", new Date(now).getDate())
+        }
+      } finally {
+        mongoose.connection.close()
       }
-
-      await voiceSchema.findOneAndUpdate(obj, obj, {
-        upsert: true,
-      })
     })
   }
 }
