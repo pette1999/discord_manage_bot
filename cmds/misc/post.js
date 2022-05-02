@@ -35,12 +35,12 @@ module.exports = class postCommand extends Commando.Command {
           userId: id,
           userName: user.tag,
           postLink: args,
-          approved: 0,
-          hasRewarded: 0,
-          hasBonus: 0,
-          like: 0,
-          comment: 0,
-          share: 0,
+          approved: '0',
+          hasRewarded: '0',
+          hasBonus: '0',
+          like: '0',
+          comment: '0',
+          share: '0',
         }
 
         await socialMediaPostSchema.findOneAndUpdate(obj, obj, {

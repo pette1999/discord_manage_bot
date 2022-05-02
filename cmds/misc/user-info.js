@@ -4,6 +4,7 @@ const mongo = require('@util/mongo')
 const attendanceSchema = require('@schemas/attendance-schema')
 const memberScoreSchema = require('@schemas/member-schema')
 const morningSchema = require('@schemas/morning-schema')
+const nightSchema = require('@schemas/night-schema')
 let messageSchema = require('@schemas/statbotMessage-schema')
 let voiceSchema = require('@schemas/statbotVoice-schema')
 
@@ -38,6 +39,8 @@ module.exports = class UserInfoCommand extends Commando.Command {
                 voiceCount = parseInt(voiceArr['voiceCount'])
                 // get morning count
                 const morningCount = await morningSchema.findOne({ userId: id }).morningCount
+                // get night count
+                const nightCount = await nightSchema.findOne({ userId: id }).nightCount
             } finally {
                 mongoose.connection.close()
             }
@@ -68,6 +71,7 @@ module.exports = class UserInfoCommand extends Commando.Command {
             typeof messageCount != 'undefined' ? score += parseInt(messageCount) * 0.05 : score += 0
             typeof attendanceTimes != 'undefined' ? score += parseInt(attendanceTimes) * 2 : score += 0
             typeof morningCount != 'undefined' ? score += parseInt(morningCount) * 0 : score += 0
+            typeof nightCount != 'undefined' ? score += parseInt(nightCount) * 0 : score += 0
             score = parseFloat(score).toFixed(2)
 
             // await mongo().then(async (mongoose) => {

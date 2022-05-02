@@ -1,24 +1,24 @@
 const Commando = require('discord.js-commando')
 const mongo = require('@util/mongo')
-const morningSchema = require('@schemas/morning-schema')
+const nightSchema = require('@schemas/night-schema')
 
-let morningCache = []
+let nightCache = []
 
 const clearCache = () => {
-  morningCache = []
+  nightCache = []
   setTimeout(clearCache, 1000 * 60 * 0) // 10 minutes
 }
 clearCache()
 
-const alreadyMorning = 'You have already checked in with morning today'
+const alreadyNight = 'You have already checked out with night today'
 
 module.exports = class eventTimeCommand extends Commando.Command {
   constructor(client) {
     super(client, {
-      name: 'morning',
+      name: 'night',
       group: 'misc',
-      memberName: 'morning',
-      description: 'Greeting people with morning',
+      memberName: 'night',
+      description: 'Greeting people with night',
     })
   }
 
@@ -26,50 +26,49 @@ module.exports = class eventTimeCommand extends Commando.Command {
     const { member } = message
     const { id } = member
     const user = member.user
-    var morningCount = 1
+    var nightCount = 1
 
-    if (morningCache.includes(id)) {
+    if (nightCache.includes(id)) {
       console.log('Returning from cache')
-      message.reply(alreadyMorning)
+      message.reply(alreadyNight)
       return
     }
 
     await mongo().then(async (mongoose) => {
       try {
-        const count = await morningSchema.findOne({ userId: id })
+        const count = await nightSchema.findOne({ userId: id })
         if(count) {
-          morningCount = count.morningCount + 1
+          nightCount = count.nightCount + 1
 
           const then = new Date(count.updatedAt).getTime()
           const now = new Date().getTime()
-          
+
           const updatedDay = new Date(then).getDate()
           const nowDay = new Date(now).getDate()
           const diffDay = Math.abs(nowDay - updatedDay)
 
-          // if next day, then is about to checkin morning again
           if (diffDay <= 0) {
-            morningCache.push(id)
+            nightCache.push(id)
 
-            message.reply(alreadyMorning)
+            message.reply(alreadyNight)
             return
           }
         } else {
-          morningCount = 1
+          nightCount = 1
         }
 
         const obj = {
           userId: id,
           userName: user.tag,
-          morningCount: morningCount,
+          nightCount: nightCount,
         }
-
-        await morningSchema.findOneAndUpdate({ userId: id }, obj, {
+        
+        await nightSchema.findOneAndUpdate({ userId: id }, obj, {
           upsert: true,
         })
 
-        morningCache.push(id)
-        message.reply("Good Morning! :sunny:")
+        nightCache.push(id)
+        message.reply("Good Evening! :crescent_moon:")
       } finally {
         mongoose.connection.close()
       }

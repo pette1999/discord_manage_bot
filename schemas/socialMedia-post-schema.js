@@ -6,22 +6,17 @@ const reqString = {
   required: true,
 }
 
-const reqNumber = {
-  type: Number,
-  required: true,
-}
-
 const socialMediaPostSchema = mongoose.Schema(
   {
     userId: reqString,
     userName: reqString,
     postLink: reqString,
-    approved: reqNumber,
-    hasRewarded: reqNumber,
-    hasBonus: reqNumber,
-    like: reqNumber,
-    comment: reqNumber,
-    share: reqNumber,
+    approved: reqString,
+    hasRewarded: reqString,
+    hasBonus: reqString,
+    like: reqString,
+    comment: reqString,
+    share: reqString,
   },
   {
     timestamps: true,
