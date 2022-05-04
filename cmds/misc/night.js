@@ -1,6 +1,7 @@
 const Commando = require('discord.js-commando')
 const mongo = require('@util/mongo')
 const nightSchema = require('@schemas/night-schema')
+const morningSchema = require('@schemas/morning-schema')
 
 let nightCache = []
 
@@ -37,6 +38,35 @@ module.exports = class eventTimeCommand extends Commando.Command {
     await mongo().then(async (mongoose) => {
       try {
         const count = await nightSchema.findOne({ userId: id })
+        const morning = await morningSchema.findOne({ userId: id })
+        if (morning) {
+          console.log(morning)
+          // has morning record, and checked-in in the morning
+          const lastUpdate = new Date(morning.updatedAt).getTime()
+          const lastUpdateDate = new Date(new Date(lastUpdate).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })).getDate()
+          const nowTime = new Date().getTime()
+          const nowDay = new Date(new Date(nowTime).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })).getDate()
+          // hours difference 
+          const diff = Math.abs(nowTime - lastUpdate)
+          const diffHour = Math.round(diff / (1000 * 60 * 60))
+          console.log("lastUpdateDate: ", lastUpdateDate)
+          console.log("nowDay: ", nowDay)
+          console.log("diffHour: ", diffHour)
+
+          if (lastUpdateDate == nowDay && diffHour >= 12) {
+            // okay to check out with night
+          } else if (lastUpdateDate == nowDay && diffHour < 12) {
+            message.reply("Sorry, please wait a few more hours to check out with night :timer:")
+            return
+          } else if (lastUpdateDate != nowDay && diffHour > 12) {
+            message.reply("Remember to morning check in tomorrow! :grinning:")
+          }
+
+          // has the morning, but does not have the check-in in the morning
+        } else {
+          message.reply("Remember to morning check in tomorrow! :grinning:")
+        }
+        
         if(count) {
           nightCount = count.nightCount + 1
 
