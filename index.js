@@ -10,11 +10,7 @@ const Commando = require('discord.js-commando')
 
 const config = require('@root/config.json')
 const { loadLanguages } = require('@util/language')
-    // const loadCommands = require('@root/commands/load-commands')
-    // const commandBase = require('@root/commands/command-base')
-    // const loadFeatures = require('@root/features/load-features')
-
-// const modLogs = require('@features/mod-logs')
+const loadFeatures = require('@root/features/load-features')
 
 const client = new Commando.CommandoClient({
     owner: '594946541387513858',
@@ -46,10 +42,7 @@ client.on('ready', async() => {
         .registerDefaults()
         .registerCommandsIn(path.join(__dirname, 'cmds'))
 
-    loadLanguages(client)
-        // commandBase.loadPrefixes(client)
-        // loadCommands(client)
-        // loadFeatures(client)
+    loadFeatures(client)
 })
 
 client.login(config.token)
