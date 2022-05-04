@@ -19,18 +19,13 @@ module.exports = class eventTimeCommand extends Commando.Command {
   async run(message) {
     const { member } = message
     const { id } = member
-    await mongo().then(async (mongoose) => {
-      try {
-        const count = await morningSchema.findOne({ userId: id })
-        if(count) {
-          const then = new Date(count.updatedAt).getTime()
-          const now = new Date().getTime()
-          console.log("Then: ", new Date(then).getDate())
-          console.log("Now: ", new Date(now).getDate())
-        }
-      } finally {
-        mongoose.connection.close()
-      }
-    })
+    
+    const count = await morningSchema.findOne({ userId: id })
+    if (count) {
+      const then = new Date(count.updatedAt).getTime()
+      const now = new Date().getTime()
+      console.log("Then: ", new Date(then).getDate())
+      console.log("Now: ", new Date(now).getDate())
+    }
   }
 }

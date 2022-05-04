@@ -35,73 +35,67 @@ module.exports = class eventTimeCommand extends Commando.Command {
       return
     }
 
-    await mongo().then(async (mongoose) => {
-      try {
-        const count = await nightSchema.findOne({ userId: id })
-        const morning = await morningSchema.findOne({ userId: id })
-        if (morning) {
-          console.log(morning)
-          // has morning record, and checked-in in the morning
-          const lastUpdate = new Date(morning.updatedAt).getTime()
-          const lastUpdateDate = new Date(new Date(lastUpdate).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })).getDate()
-          const nowTime = new Date().getTime()
-          const nowDay = new Date(new Date(nowTime).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })).getDate()
-          // hours difference 
-          const diff = Math.abs(nowTime - lastUpdate)
-          const diffHour = Math.round(diff / (1000 * 60 * 60))
-          console.log("lastUpdateDate: ", lastUpdateDate)
-          console.log("nowDay: ", nowDay)
-          console.log("diffHour: ", diffHour)
+    const count = await nightSchema.findOne({ userId: id })
+    const morning = await morningSchema.findOne({ userId: id })
+    if (morning) {
+      console.log(morning)
+      // has morning record, and checked-in in the morning
+      const lastUpdate = new Date(morning.updatedAt).getTime()
+      const lastUpdateDate = new Date(new Date(lastUpdate).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })).getDate()
+      const nowTime = new Date().getTime()
+      const nowDay = new Date(new Date(nowTime).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })).getDate()
+      // hours difference 
+      const diff = Math.abs(nowTime - lastUpdate)
+      const diffHour = Math.round(diff / (1000 * 60 * 60))
+      console.log("lastUpdateDate: ", lastUpdateDate)
+      console.log("nowDay: ", nowDay)
+      console.log("diffHour: ", diffHour)
 
-          if (lastUpdateDate == nowDay && diffHour >= 12) {
-            // okay to check out with night
-          } else if (lastUpdateDate == nowDay && diffHour < 12) {
-            message.reply("Sorry, please wait a few more hours to check out with night :timer:")
-            return
-          } else if (lastUpdateDate != nowDay && diffHour > 12) {
-            message.reply("Remember to morning check in tomorrow! :grinning:")
-          }
-
-          // has the morning, but does not have the check-in in the morning
-        } else {
-          message.reply("Remember to morning check in tomorrow! :grinning:")
-        }
-        
-        if(count) {
-          nightCount = count.nightCount + 1
-
-          const then = new Date(count.updatedAt).getTime()
-          const now = new Date().getTime()
-
-          const updatedDay = new Date(then).getDate()
-          const nowDay = new Date(now).getDate()
-          const diffDay = Math.abs(nowDay - updatedDay)
-
-          if (diffDay <= 0) {
-            nightCache.push(id)
-
-            message.reply(alreadyNight)
-            return
-          }
-        } else {
-          nightCount = 1
-        }
-
-        const obj = {
-          userId: id,
-          userName: user.tag,
-          nightCount: nightCount,
-        }
-        
-        await nightSchema.findOneAndUpdate({ userId: id }, obj, {
-          upsert: true,
-        })
-
-        nightCache.push(id)
-        message.reply("Good Evening! :crescent_moon:")
-      } finally {
-        mongoose.connection.close()
+      if (lastUpdateDate == nowDay && diffHour >= 12) {
+        // okay to check out with night
+      } else if (lastUpdateDate == nowDay && diffHour < 12) {
+        message.reply("Sorry, please wait a few more hours to check out with night :timer:")
+        return
+      } else if (lastUpdateDate != nowDay && diffHour > 12) {
+        message.reply("Remember to morning check in tomorrow! :grinning:")
       }
+
+      // has the morning, but does not have the check-in in the morning
+    } else {
+      message.reply("Remember to morning check in tomorrow! :grinning:")
+    }
+
+    if (count) {
+      nightCount = count.nightCount + 1
+
+      const then = new Date(count.updatedAt).getTime()
+      const now = new Date().getTime()
+
+      const updatedDay = new Date(then).getDate()
+      const nowDay = new Date(now).getDate()
+      const diffDay = Math.abs(nowDay - updatedDay)
+
+      if (diffDay <= 0) {
+        nightCache.push(id)
+
+        message.reply(alreadyNight)
+        return
+      }
+    } else {
+      nightCount = 1
+    }
+
+    const obj = {
+      userId: id,
+      userName: user.tag,
+      nightCount: nightCount,
+    }
+
+    await nightSchema.findOneAndUpdate({ userId: id }, obj, {
+      upsert: true,
     })
+
+    nightCache.push(id)
+    message.reply("Good Evening! :crescent_moon:")
   }
 }

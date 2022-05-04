@@ -26,32 +26,25 @@ module.exports = class postCommand extends Commando.Command {
     
     console.log('Fetching from mongo')
 
-    await mongo().then(async (mongoose) => {
-      try {
-        const results = await socialMediaPostSchema.find()
-        console.log('Results: ', results)
+    const results = await socialMediaPostSchema.find()
+    console.log('Results: ', results)
 
-        const obj = {
-          userId: id,
-          userName: user.tag,
-          postLink: args,
-          approved: '0',
-          hasRewarded: '0',
-          hasBonus: '0',
-          like: '0',
-          comment: '0',
-          share: '0',
-        }
+    const obj = {
+      userId: id,
+      userName: user.tag,
+      postLink: args,
+      approved: '0',
+      hasRewarded: '0',
+      hasBonus: '0',
+      like: '0',
+      comment: '0',
+      share: '0',
+    }
 
-        await socialMediaPostSchema.findOneAndUpdate(obj, obj, {
-          upsert: true,
-        })
-
-        message.reply("Thank you for sharing about Beta! :fire: An admin will check out your submit shortly")
-
-      } finally {
-        mongoose.connection.close()
-      }
+    await socialMediaPostSchema.findOneAndUpdate(obj, obj, {
+      upsert: true,
     })
+
+    message.reply("Thank you for sharing about Beta! :fire: An admin will check out your submit shortly")
   }
 }

@@ -8,6 +8,7 @@ const MongoDBProvider = require('commando-provider-mongo')
 const path = require('path')
 const Commando = require('discord.js-commando')
 
+const mongo = require('@util/mongo')
 const config = require('@root/config.json')
 const { loadLanguages } = require('@util/language')
 const loadFeatures = require('@root/features/load-features')
@@ -31,6 +32,8 @@ client.setProvider(
 
 client.on('ready', async() => {
     console.log('The client is ready!')
+
+    await mongo()
 
     client.registry
         .registerGroups([

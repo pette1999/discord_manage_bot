@@ -34,45 +34,39 @@ module.exports = class eventTimeCommand extends Commando.Command {
       return
     }
 
-    await mongo().then(async (mongoose) => {
-      try {
-        const count = await morningSchema.findOne({ userId: id })
-        if(count) {
-          morningCount = count.morningCount + 1
+    const count = await morningSchema.findOne({ userId: id })
+    if (count) {
+      morningCount = count.morningCount + 1
 
-          const then = new Date(count.updatedAt).getTime()
-          const now = new Date().getTime()
-          
-          const updatedDay = new Date(then).getDate()
-          const nowDay = new Date(now).getDate()
-          const diffDay = Math.abs(nowDay - updatedDay)
+      const then = new Date(count.updatedAt).getTime()
+      const now = new Date().getTime()
 
-          // if next day, then is about to checkin morning again
-          if (diffDay <= 0) {
-            morningCache.push(id)
+      const updatedDay = new Date(then).getDate()
+      const nowDay = new Date(now).getDate()
+      const diffDay = Math.abs(nowDay - updatedDay)
 
-            message.reply(alreadyMorning)
-            return
-          }
-        } else {
-          morningCount = 1
-        }
-
-        const obj = {
-          userId: id,
-          userName: user.tag,
-          morningCount: morningCount,
-        }
-
-        await morningSchema.findOneAndUpdate({ userId: id }, obj, {
-          upsert: true,
-        })
-
+      // if next day, then is about to checkin morning again
+      if (diffDay <= 0) {
         morningCache.push(id)
-        message.reply("Good Morning! :sunny:")
-      } finally {
-        mongoose.connection.close()
+
+        message.reply(alreadyMorning)
+        return
       }
+    } else {
+      morningCount = 1
+    }
+
+    const obj = {
+      userId: id,
+      userName: user.tag,
+      morningCount: morningCount,
+    }
+
+    await morningSchema.findOneAndUpdate({ userId: id }, obj, {
+      upsert: true,
     })
+
+    morningCache.push(id)
+    message.reply("Good Morning! :sunny:")
   }
 }
