@@ -51,12 +51,12 @@ module.exports = class eventTimeCommand extends Commando.Command {
       console.log("nowDay: ", nowDay)
       console.log("diffHour: ", diffHour)
 
-      if (lastUpdateDate == nowDay && diffHour >= 12) {
+      if (lastUpdateDate == nowDay && diffHour >= 6) {
         // okay to check out with night
-      } else if (lastUpdateDate == nowDay && diffHour < 12) {
+      } else if (lastUpdateDate == nowDay && diffHour < 6) {
         message.reply("Sorry, please wait a few more hours to check out with night :timer:")
         return
-      } else if (lastUpdateDate != nowDay && diffHour > 12) {
+      } else if (lastUpdateDate != nowDay && diffHour > 6) {
         message.reply("Remember to morning check in tomorrow! :grinning:")
       }
 

@@ -44,6 +44,6 @@ module.exports = class postCommand extends Commando.Command {
       upsert: true,
     })
 
-    message.reply("Thank you for sharing about Beta! :fire: An admin will check out your submit shortly")
+    message.reply("Thank you for sharing about Beta! :fire: An admin will check out your submission shortly")
   }
 }
