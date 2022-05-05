@@ -1,5 +1,4 @@
 const Commando = require('discord.js-commando')
-const mongo = require('@util/mongo')
 const socialMediaPostSchema = require('@schemas/socialMedia-post-schema')
 
 module.exports = class postCommand extends Commando.Command {

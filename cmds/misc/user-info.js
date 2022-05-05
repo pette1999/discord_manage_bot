@@ -1,6 +1,5 @@
 const { MessageEmbed } = require('discord.js')
 const Commando = require('discord.js-commando')
-const mongo = require('@util/mongo')
 const attendanceSchema = require('@schemas/attendance-schema')
 const memberScoreSchema = require('@schemas/member-schema')
 const morningSchema = require('@schemas/morning-schema')
