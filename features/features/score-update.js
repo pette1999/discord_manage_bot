@@ -97,15 +97,9 @@ const updateScore = async (client) => {
       upsert: true,
     })
   }
-  // for (let i = 0; i < userIds.length; ++i) {
-  //   })
-  //   console.log("Obj: ", obj)
-  //   // await userinfoSchema.findOneAndUpdate({ user_Id: String(tempId) }, obj, {
-  //   //   upsert: true,
-  //   // })
-  // }
+
   setTimeout(() => {
-    updateLeaderboard(client)
+    updateScore(client)
   }, 1000 * 60 * 60)
 }
 
