@@ -21,7 +21,6 @@ const updateScore = async (client) => {
       userIds.push(id)
       userNames.push(username + '#' + discriminator)
       roles.push(_roles.length)
-      console.log(user)
     })
   })
 

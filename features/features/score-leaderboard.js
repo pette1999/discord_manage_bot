@@ -46,7 +46,7 @@ const updateLeaderboard = async (client) => {
   }
   setTimeout(() => {
     updateLeaderboard(client)
-  }, 1000 * 60 * 60)
+  }, 1000 * 60 * 3600)
 }
 
 module.exports = async (client) => {
