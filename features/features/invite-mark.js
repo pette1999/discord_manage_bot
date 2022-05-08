@@ -71,6 +71,16 @@ const markTempInvites = async (client) => {
       }
     }
   })
+
+  client.on('guildMemberRemove', async (member) => {
+    console.log("Left: ", member.id)
+    tempUser = await tempInviteSchema.findOne({ user_Id: member.id })
+    console.log(tempUser)
+    if(tempUser) {
+      // if the left member is in the temp invite waitlist, then we delete all the information related to this user in the temp invite database
+      await tempInviteSchema.deleteMany({ user_Id: { $gte: member.id } })
+    }
+  })
 }
 
 module.exports = async (client) => {
