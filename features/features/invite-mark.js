@@ -78,7 +78,8 @@ const markTempInvites = async (client) => {
     console.log(tempUser)
     if(tempUser) {
       // if the left member is in the temp invite waitlist, then we delete all the information related to this user in the temp invite database
-      await tempInviteSchema.deleteMany({ user_Id: { $gte: member.id } })
+      await tempInviteSchema.deleteMany({ user_Id: member.id })
+      console.log(`${member.id} removed from the server.`)
     }
   })
 }
