@@ -7,13 +7,27 @@ const manageInvites = async (client) => {
   var tempJoined = []
   var old_inviteNum = 0
   var old_inviteArr = []
+  var roles = {}
+  const guild = client.guilds.cache.get("948732804999553034")
+  // get roles
+  await guild.members.fetch().then((members) => {
+    members.forEach((member) => {
+      const { user, _roles } = member
+      const { id } = user
+      roles[id] = _roles
+    })
+  })
   console.log("Temp invite: ")
   console.log(tempInviteArr)
   if(tempInviteArr) {
     for (var k = 0; k < tempInviteArr.length; k++) {
+      var roleVerified = false
       const tempInviteArr_userID = tempInviteArr[k]['user_Id']
       if (!tempJoined.includes(tempInviteArr_userID)) {
         console.log(tempInviteArr_userID)
+        if (typeof roles[tempInviteArr_userID] != 'undefined' && roles[tempInviteArr_userID].includes('954116583620501524')){
+          roleVerified = true
+        }
         tempJoined.push(tempInviteArr_userID)
         const old_invites = await inviteSchema.findOne({ userId: tempInviteArr[k]['inviter_Id'] })
         if (old_invites) {
@@ -29,8 +43,7 @@ const manageInvites = async (client) => {
         const now = new Date()
         const joined = Date.parse(tempInviteArr[k]['joined'])
         const diffHour = Math.round(Math.abs(now - joined) / (1000 * 60 * 60))
-        if (diffHour >= 24) {
-          console.log(diffHour)
+        if (diffHour >= 24 && roleVerified == true) {
           // we say that's a formal join, we add invite to the inviter
           obj = {
             userId: tempInviteArr[k]['inviter_Id'],
