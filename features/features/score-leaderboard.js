@@ -41,7 +41,11 @@ const updateLeaderboard = async (client) => {
         })
         .setTimestamp()
 
-      channel.send(embed)
+      channel.send(embed).then((message) => {
+        setTimeout(() => {
+          message.delete()
+        }, 1000 * 60 * 361)
+      })
     }
   }
   setTimeout(() => {
