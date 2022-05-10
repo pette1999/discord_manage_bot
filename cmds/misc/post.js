@@ -13,15 +13,19 @@ module.exports = class postCommand extends Commando.Command {
   }
 
   async run(message, args) {
-    const { guild, member } = message
+    const { guild, member, attachments } = message
     const { id } = member
     const user = message.mentions.users.first() || message.member.user
-
+    var pictures = ['nothing']
+    attachments.forEach((attachment) => {
+      pictures[0] = attachment.attachment
+    })
     // if input without code, unable to check in
-    if (args === '') {
+    if (args == '' && !attachments) {
       message.reply("Wrong command, please add a link to the post :wink:")
       return
     }
+    pictures[0]!='nothing' ? args = pictures[0] : args = args
     
     console.log('Fetching from mongo')
 
