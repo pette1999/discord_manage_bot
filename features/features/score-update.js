@@ -5,6 +5,7 @@ const nightSchema = require('@schemas/night-schema')
 const messageSchema = require('@schemas/statbotMessage-schema')
 const voiceSchema = require('@schemas/statbotVoice-schema')
 const inviteSchema = require('@schemas/invites-schema')
+const selfintoSchema = require('@schemas/selfintro-schema')
 
 const updateScore = async (client) => {
   var userIds = []
@@ -52,36 +53,23 @@ const updateScore = async (client) => {
     var nightCount = 0
     var inviteCount = 0
     var score = 0
+    var selfIntroCount = 0
     var obj = {}
     //console.log(i, ",", userIds[i], ",", userNames[i], ",", roles[i])
     const inviteArr = await inviteSchema.findOne({ userId: userIds[i] })
-    if(inviteArr) {
-      inviteCount = parseInt(inviteArr['invites'])
-    } else {
-      inviteCount = 0
-    }
+    inviteArr ? inviteCount = parseInt(inviteArr['invites']) : inviteCount = 0
     const attendanceArr = await attendanceSchema.findOne({ userId: userIds[i] }).distinct('attendance')
     attendanceTimes = attendanceArr.length
     const messageArr = await messageSchema.findOne({ userId: userIds[i] })
-    if (messageArr) {
-      messageCount = parseInt(messageArr['messageCount'])
-    } else {
-      messageCount = 0
-    }
+    messageArr ? messageCount = parseInt(messageArr['messageCount']) : messageCount = 0
     const voiceArr = await voiceSchema.findOne({ userId: userIds[i] })
-    if (voiceArr) {
-      voiceCount = parseInt(voiceArr['voiceCount'])
-    } else {
-      voiceCount = 0
-    }
-    morningCount = await morningSchema.findOne({ userId: userIds[i] }).morningCount
-    if (!morningCount) {
-      morningCount = 0
-    }
-    nightCount = await nightSchema.findOne({ userId: userIds[i] }).nightCount
-    if (!nightCount) {
-      nightCount = 0
-    }
+    voiceArr ? voiceCount = parseInt(voiceArr['voiceCount']) : voiceCount = 0
+    const morning = await morningSchema.findOne({ userId: userIds[i] })
+    morning ? morningCount = parseInt(morning['morningCount']) : morningCount = 0
+    const night = await nightSchema.findOne({ userId: userIds[i] })
+    night ? nightCount = parseInt(night['nightCount']) : nightCount = 0
+    const selfIntro = await selfintoSchema.findOne({ user_Id: userIds[i] })
+    selfIntro ? selfIntroCount = parseInt(selfIntro['has_Introduced']) : selfIntroCount = 0
 
     // typeof inviteCounter[userNames[i]] != 'undefined' ? score += parseInt(inviteCounter[userNames[i]]) * 3 : score += 0
     typeof inviteCount != 'undefined' ? score += parseInt(inviteCount) * 3 : score += 0
@@ -90,6 +78,7 @@ const updateScore = async (client) => {
     typeof attendanceTimes != 'undefined' ? score += parseInt(attendanceTimes) * 2 : score += 0
     typeof morningCount != 'undefined' ? score += parseInt(morningCount) * 0 : score += 0
     typeof nightCount != 'undefined' ? score += parseInt(nightCount) * 0 : score += 0
+    typeof selfIntroCount != 'undefined' ? score += parseInt(selfIntroCount) * 5 : score += 0
     score = parseFloat(score).toFixed(2)
 
     obj = {

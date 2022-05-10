@@ -1,5 +1,4 @@
 const Commando = require('discord.js-commando')
-const mongo = require('@util/mongo')
 const morningSchema = require('@schemas/morning-schema')
 
 let morningCache = []

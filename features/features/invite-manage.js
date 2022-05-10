@@ -1,6 +1,5 @@
 const tempInviteSchema = require('@schemas/tempInvites-schema')
 const inviteSchema = require('@schemas/invites-schema')
-var sleep = require('system-sleep')
 
 const manageInvites = async (client) => {
   const tempInviteArr = await tempInviteSchema.find()
