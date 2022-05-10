@@ -76,8 +76,8 @@ const updateScore = async (client) => {
     typeof voiceCount != 'undefined' ? score += parseInt(voiceCount) * 0.01 : score += 0
     typeof messageCount != 'undefined' ? score += parseInt(messageCount) * 0.05 : score += 0
     typeof attendanceTimes != 'undefined' ? score += parseInt(attendanceTimes) * 2 : score += 0
-    typeof morningCount != 'undefined' ? score += parseInt(morningCount) * 0 : score += 0
-    typeof nightCount != 'undefined' ? score += parseInt(nightCount) * 0 : score += 0
+    typeof morningCount != 'undefined' ? score += parseInt(morningCount) * 0.1 : score += 0
+    typeof nightCount != 'undefined' ? score += parseInt(nightCount) * 0.1 : score += 0
     typeof selfIntroCount != 'undefined' ? score += parseInt(selfIntroCount) * 5 : score += 0
     score = parseFloat(score).toFixed(2)
 
