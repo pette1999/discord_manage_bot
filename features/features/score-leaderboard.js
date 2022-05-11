@@ -1,26 +1,38 @@
 const { MessageEmbed } = require('discord.js')
 const userinfoSchema = require('@schemas/userinfo-schema')
+const weeklyBoard = require('@schemas/weekly-board-schema')
 const scoreUpdate = require('./score-update')
+const scoreWeekly = require('./score-weekly')
 
 const updateLeaderboard = async (client) => {
   // fetchTopMembers(client)
   let text = ''
+  let weekly_text = ''
   let numbers = [':one:', ':two:', ':three:', ':four:', ':five:', ':six:', ':seven:', ':eight:', ':nine:', ':keycap_ten:']
 
   const results = await userinfoSchema.find({}).sort({
     user_Points: -1,
   }).limit(10)
 
+  const weekly_results = await weeklyBoard.find({}).sort({
+    weeklyScore: -1,
+  }).limit(10)
+
   for (let counter = 0; counter < results.length; ++counter) {
     const { user_Id, user_Points = 0 } = results[counter]
+    const { userId, weeklyScore = 0 } = weekly_results[counter]
     if (counter == 0) {
       text += `${numbers[counter]} - :first_place: <@${user_Id}>: **${user_Points}** BRPs\n`
+      weekly_text += `${numbers[counter]} - :first_place: <@${userId}>: **${weeklyScore}** BRPs\n`
     } else if (counter == 1) {
       text += `${numbers[counter]} - :second_place: <@${user_Id}>: **${user_Points}** BRPs\n`
+      weekly_text += `${numbers[counter]} - :second_place: <@${userId}>: **${weeklyScore}** BRPs\n`
     } else if (counter == 2) {
       text += `${numbers[counter]} - :third_place: <@${user_Id}>: **${user_Points}** BRPs\n`
+      weekly_text += `${numbers[counter]} - :third_place: <@${userId}>: **${weeklyScore}** BRPs\n`
     } else {
       text += `${numbers[counter]} - <@${user_Id}>: **${user_Points}** BRPs\n`
+      weekly_text += `${numbers[counter]} - <@${userId}>: **${weeklyScore}** BRPs\n`
     }
   }
 
@@ -41,8 +53,25 @@ const updateLeaderboard = async (client) => {
         })
         .setFooter("Beta Fellowship", "https://i.postimg.cc/xdQCDd0D/beta-logo-wt.png")
         .setTimestamp()
+      
+      const embed_weekly = new MessageEmbed()
+        .setColor('#FFD42B')
+        .setTitle('Hall of Fame(Weekly)')
+        .setThumbnail('https://i.postimg.cc/xdQCDd0D/beta-logo-wt.png')
+        .addFields({
+          name: 'Beta Fellowship Members',
+          value: weekly_text
+        })
+        .setFooter("Beta Fellowship", "https://i.postimg.cc/xdQCDd0D/beta-logo-wt.png")
+        .setTimestamp()
 
       channel.send(embed).then((message) => {
+        setTimeout(() => {
+          message.delete()
+        }, 1000 * 60 * 359)
+      })
+
+      channel.send(embed_weekly).then((message) => {
         setTimeout(() => {
           message.delete()
         }, 1000 * 60 * 359)
@@ -56,5 +85,6 @@ const updateLeaderboard = async (client) => {
 
 module.exports = async (client) => {
   scoreUpdate(client)
+  scoreWeekly(client)
   updateLeaderboard(client)
 }

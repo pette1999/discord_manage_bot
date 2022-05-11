@@ -2,36 +2,59 @@ const weeklyBoard = require('@schemas/weekly-board-schema')
 const weeklyRecordScore = require('@schemas/weekly-score-record-schema')
 const userinfoSchema = require('@schemas/userinfo-schema')
 
+const updateWeeklyPoints = async (client) => {
+  const userArr = await userinfoSchema.find()
+  if(userArr){
+    userArr.forEach(async (user) => {
+      // get last recorded score from last week
+      var lastweek_score = 0.0
+      var current_score = 0.0
+      var thisweek_score = 0.0
+      const weeklyRecordUser = await weeklyRecordScore.findOne({ userId: user['user_Id'] })
+      const userArr = await userinfoSchema.findOne({ user_Id: user['user_Id'] })
+      userArr ? current_score = parseFloat(userArr['user_Points']) : current_score = 0.0
+      weeklyRecordUser ? lastweek_score = parseFloat(weeklyRecordUser['record'][Object.keys(weeklyRecordUser['record'])[Object.keys(weeklyRecordUser['record']).length - 1]]['score']) : lastweek_score = 0.0
+      thisweek_score = parseFloat(current_score - lastweek_score).toFixed(2)
+      console.log("this week score: ", thisweek_score)
+      // update this weekly board score
+      await weeklyBoard.updateOne({ userId: user['user_Id'] }, { "$set": { "weeklyScore": String(thisweek_score) } })
+    })
+  }
+  setTimeout(() => {
+    updateScore(client)
+  }, 1000 * 60 * 10)
+}
+
 const weeklyScore = async (client) => {
+  const guild = client.guilds.cache.get("948732804999553034")
   if (new Date().getDay() == 1 && new Date().getHours() == 0 && new Date().getMinutes() == 0) {
     // every Monday at 0:00AM
-    // 1. we do clean up the weekly boards score
-    // 2. store the total score to the weekly-record_scores database
-    
+    var user_score = 0
 
-  }
-  const guild = client.guilds.cache.get("948732804999553034")
-  var user_score = 0
+    await guild.members.fetch().then((members) => {
+      members.forEach(async (member) => {
+        const { user } = member
+        const { id, username, discriminator } = user
+        const name = `${username}#${discriminator}`
+        const userArr = await userinfoSchema.findOne({ user_Id: id })
+        userArr ? user_score = parseFloat(userArr['user_Points']) : user_score = 0
 
-  await guild.members.fetch().then((members) => {
-    members.forEach(async (member) => {
-      const { user } = member
-      const { id, username, discriminator } = user
-      const name = `${username}#${discriminator}`
-      const userArr = await userinfoSchema.findOne({ user_Id: id })
-      userArr ? user_score = parseFloat(userArr['user_Points']) : user_score = 0
-
-      const obj = {
-        userId: id,
-        userName: name,
-        record: [{date: new Date(), score: String(user_score)}],
-      }
-
-      await weeklyRecordScore.findOneAndUpdate({ userId: id }, obj, {
-        upsert: true,
+        const obj = {
+          userId: id,
+          userName: name,
+          record: [{ date: new Date(), score: String(user_score) }],
+        }
+        // store the total score to the weekly-record_scores database
+        await weeklyRecordScore.findOneAndUpdate({ userId: id }, obj, {
+          upsert: true,
+        })
+        // clean up the weekly boards score
+        await weeklyBoard.updateOne({ userId: id }, { "$set": { "weeklyScore": "0" } })
       })
     })
-  })
+
+
+  }
   setTimeout(() => {
     weeklyScore(client)
   }, 1000 * 60)
@@ -39,4 +62,5 @@ const weeklyScore = async (client) => {
 
 module.exports = async (client) => {
   weeklyScore(client)
+  updateWeeklyPoints(client)
 }
