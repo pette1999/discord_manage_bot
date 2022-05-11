@@ -21,8 +21,8 @@ module.exports = class postCommand extends Commando.Command {
       pictures[0] = attachment.attachment
     })
     // if input without code, unable to check in
-    if (args == '' && !attachments) {
-      message.reply("Wrong command, please add a link to the post :wink:")
+    if (args === '') {
+      message.reply("Please add the link or snapshot of your post :wink:")
       return
     }
     pictures[0]!='nothing' ? args = pictures[0] : args = args

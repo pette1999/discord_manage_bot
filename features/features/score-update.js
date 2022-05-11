@@ -6,6 +6,7 @@ const messageSchema = require('@schemas/statbotMessage-schema')
 const voiceSchema = require('@schemas/statbotVoice-schema')
 const inviteSchema = require('@schemas/invites-schema')
 const selfintoSchema = require('@schemas/selfintro-schema')
+const postSchema = require('@schemas/socialMedia-post-schema')
 
 const updateScore = async (client) => {
   var userIds = []
@@ -13,6 +14,7 @@ const updateScore = async (client) => {
   var roles = []
   var inviteCounter = {}
   var invitePeople = {}
+  var approvedPosts = []
   const guild = client.guilds.cache.get("948732804999553034")
 
   // Fetch all members
@@ -45,6 +47,16 @@ const updateScore = async (client) => {
   // console.log(inviteCounter)
   // console.log(invitePeople)
 
+  // fetch posts
+  const postArr = await postSchema.find()
+  if(postArr){
+    postArr.forEach((post) => {
+      if (post['approved'] == "1") {
+        approvedPosts.push(post['userId'])
+      }
+    })
+  }
+
   for (let i=0; i<userIds.length; ++i) {
     var attendanceTimes = 0
     var messageCount = 0
@@ -54,7 +66,12 @@ const updateScore = async (client) => {
     var inviteCount = 0
     var score = 0
     var selfIntroCount = 0
+    var postCount = 0
     var obj = {}
+
+    approvedPosts.forEach(userID => {
+      userID == userIds[i] ? postCount += 1 : postCount += 0
+    })
     //console.log(i, ",", userIds[i], ",", userNames[i], ",", roles[i])
     const inviteArr = await inviteSchema.findOne({ userId: userIds[i] })
     inviteArr ? inviteCount = parseInt(inviteArr['invites']) : inviteCount = 0
@@ -79,6 +96,7 @@ const updateScore = async (client) => {
     typeof morningCount != 'undefined' ? score += parseInt(morningCount) * 0.1 : score += 0
     typeof nightCount != 'undefined' ? score += parseInt(nightCount) * 0.1 : score += 0
     typeof selfIntroCount != 'undefined' ? score += parseInt(selfIntroCount) * 5 : score += 0
+    postCount > 0 ? score += parseInt(postCount) * 5 : score += 0
     score = parseFloat(score).toFixed(2)
 
     obj = {

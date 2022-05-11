@@ -1,5 +1,7 @@
+const { MessageEmbed } = require('discord.js')
 const tempInviteSchema = require('@schemas/tempInvites-schema')
 const userinfoSchema = require('@schemas/userinfo-schema')
+const inviteSchema = require('@schemas/invites-schema')
 
 const markTempInvites = async (client) => {
   const invites = {} // { guildId: { memberId: count } }
@@ -49,6 +51,14 @@ const markTempInvites = async (client) => {
         if (inviterUser) {
           inviterID = inviterUser['user_Id']
         }
+        // get inviter real invites
+        const inviteArr = await inviteSchema.findOne({ userId: inviterUser['user_Id'] })
+        var inviter_real_Invites = 0
+        var inviter_temp_Invites = 0
+        inviteArr ? inviter_real_Invites = inviteArr['invites'] : inviter_real_Invites = 0
+        // get inviter temp invites
+        const temp_inviteArr = await tempInviteSchema.find({ inviter_Id: inviterUser['user_Id']})
+        temp_inviteArr ? inviter_temp_Invites = temp_inviteArr.length + 1 : inviter_temp_Invites = 1
 
         var obj = {
           user_Id: id,
@@ -62,9 +72,7 @@ const markTempInvites = async (client) => {
           upsert: true,
         })
 
-        channel.send(
-          `Please welcome <@${id}> to the Discord! Invited by <@${inviterID}> (${count} invites)`
-        )
+        channel.send(`Please welcome <@${id}> to the Discord! Invited by <@${inviterID}>(${inviter_real_Invites} regular, ${inviter_temp_Invites} pending)`)
 
         invites[guild.id] = invitesAfter
         return

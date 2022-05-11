@@ -16,8 +16,8 @@ const manageInvites = async (client) => {
       roles[id] = _roles
     })
   })
-  console.log("Temp invite: ")
-  console.log(tempInviteArr)
+  // console.log("Temp invite: ")
+  // console.log(tempInviteArr)
   if(tempInviteArr) {
     for (var k = 0; k < tempInviteArr.length; k++) {
       var roleVerified = false

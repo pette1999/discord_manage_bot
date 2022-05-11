@@ -39,6 +39,7 @@ const updateLeaderboard = async (client) => {
           name: 'Beta Fellowship Members',
           value: text
         })
+        .setFooter("Beta Fellowship", "https://i.postimg.cc/xdQCDd0D/beta-logo-wt.png")
         .setTimestamp()
 
       channel.send(embed).then((message) => {
