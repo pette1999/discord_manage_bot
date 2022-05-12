@@ -15,13 +15,13 @@ const updateWeeklyPoints = async (client) => {
       userArr ? current_score = parseFloat(userArr['user_Points']) : current_score = 0.0
       weeklyRecordUser ? lastweek_score = parseFloat(weeklyRecordUser['record'][Object.keys(weeklyRecordUser['record'])[Object.keys(weeklyRecordUser['record']).length - 1]]['score']) : lastweek_score = 0.0
       thisweek_score = parseFloat(current_score - lastweek_score).toFixed(2)
-      console.log("this week score: ", thisweek_score)
       // update this weekly board score
       await weeklyBoard.updateOne({ userId: user['user_Id'] }, { "$set": { "weeklyScore": String(thisweek_score) } })
     })
   }
+  await new Promise(resolve => setTimeout(resolve, 3000))
   setTimeout(() => {
-    updateScore(client)
+    updateWeeklyPoints(client)
   }, 1000 * 60 * 10)
 }
 

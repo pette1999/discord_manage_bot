@@ -12,9 +12,9 @@ const updateScore = async (client) => {
   var userIds = []
   var userNames = []
   var roles = []
+  var approvedPosts = []
   var inviteCounter = {}
   var invitePeople = {}
-  var approvedPosts = []
   const guild = client.guilds.cache.get("948732804999553034")
 
   // Fetch all members
@@ -23,9 +23,11 @@ const updateScore = async (client) => {
       const { user, _roles } = member
       const { id, username, discriminator } = user
       // console.log(count, ": ", id, ", ", username)
-      userIds.push(id)
-      userNames.push(username + '#' + discriminator)
-      roles.push(_roles.length)
+      if(!userIds.includes(id)){
+        userIds.push(id)
+        userNames.push(username + '#' + discriminator)
+        roles.push(_roles.length)
+      }
     })
   })
 
@@ -51,12 +53,38 @@ const updateScore = async (client) => {
   const postArr = await postSchema.find()
   if(postArr){
     postArr.forEach((post) => {
-      if (post['approved'] == "1") {
-        approvedPosts.push(post['userId'])
+      console.log(post['approved'])
+      if (post['approved'] == "article") {
+        for (var i = 0; i < 5; i++) approvedPosts.push(post['userId'])
+        console.log("post score: ", 5)
+      } 
+      if (post['approved'] == "video") {
+        for (var i = 0; i < 8; i++) approvedPosts.push(post['userId'])
+        console.log("post score: ", 8)
+      } 
+      if (post['approved'] == "snapshot") {
+        for (var i = 0; i < 2; i++) approvedPosts.push(post['userId'])
+        console.log("post score: ", 2)
+      } 
+      if (post['approved'] == "design") {
+        for (var i = 0; i < 3; i++) approvedPosts.push(post['userId'])
+        console.log("post score: ", 3)
+      } 
+      if (post['approved'] == "deck") {
+        for (var i = 0; i < 8; i++) approvedPosts.push(post['userId'])
+        console.log("post score: ", 8)
+      } 
+      if (post['approved'] == "lecture") {
+        for (var i = 0; i < 10; i++) approvedPosts.push(post['userId'])
+        console.log("post score: ", 10)
+      } 
+      if (post['approved'] == "report") {
+        for (var i = 0; i < 20; i++) approvedPosts.push(post['userId'])
+        console.log("post score: ", 20)
       }
     })
   }
-
+  console.log(approvedPosts)
   for (let i=0; i<userIds.length; ++i) {
     var attendanceTimes = 0
     var messageCount = 0
@@ -72,6 +100,9 @@ const updateScore = async (client) => {
     approvedPosts.forEach(userID => {
       userID == userIds[i] ? postCount += 1 : postCount += 0
     })
+    if (userIds[i] == '594946541387513858') {
+      console.log("postCount: ", postCount)
+    }
     //console.log(i, ",", userIds[i], ",", userNames[i], ",", roles[i])
     const inviteArr = await inviteSchema.findOne({ userId: userIds[i] })
     inviteArr ? inviteCount = parseInt(inviteArr['invites']) : inviteCount = 0
@@ -96,7 +127,7 @@ const updateScore = async (client) => {
     typeof morningCount != 'undefined' ? score += parseInt(morningCount) * 0.1 : score += 0
     typeof nightCount != 'undefined' ? score += parseInt(nightCount) * 0.1 : score += 0
     typeof selfIntroCount != 'undefined' ? score += parseInt(selfIntroCount) * 5 : score += 0
-    postCount > 0 ? score += parseInt(postCount) * 5 : score += 0
+    postCount > 0 ? score += parseInt(postCount) : score += 0
     score = parseFloat(score).toFixed(2)
 
     obj = {
@@ -110,11 +141,11 @@ const updateScore = async (client) => {
       user_Points: score || 0,
     }
 
-    // console.log(obj)
     await userinfoSchema.findOneAndUpdate({ user_Id: String(userIds[i]) }, obj, {
       upsert: true,
     })
   }
+  await new Promise(resolve => setTimeout(resolve, 3000))
 
   setTimeout(() => {
     updateScore(client)

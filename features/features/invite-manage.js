@@ -23,7 +23,6 @@ const manageInvites = async (client) => {
       var roleVerified = false
       const tempInviteArr_userID = tempInviteArr[k]['user_Id']
       if (!tempJoined.includes(tempInviteArr_userID)) {
-        console.log(tempInviteArr_userID)
         if (typeof roles[tempInviteArr_userID] != 'undefined' && roles[tempInviteArr_userID].includes('954116583620501524')){
           roleVerified = true
         }

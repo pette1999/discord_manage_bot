@@ -10,10 +10,13 @@ const updateLeaderboard = async (client) => {
   let weekly_text = ''
   let numbers = [':one:', ':two:', ':three:', ':four:', ':five:', ':six:', ':seven:', ':eight:', ':nine:', ':keycap_ten:']
 
+  await scoreUpdate(client)
+  await new Promise(resolve => setTimeout(resolve, 1000 * 30))
+  await scoreWeekly(client)
+  await new Promise(resolve => setTimeout(resolve, 1000 * 30))
   const results = await userinfoSchema.find({}).sort({
     user_Points: -1,
   }).limit(10)
-
   const weekly_results = await weeklyBoard.find({}).sort({
     weeklyScore: -1,
   }).limit(10)
@@ -84,7 +87,5 @@ const updateLeaderboard = async (client) => {
 }
 
 module.exports = async (client) => {
-  scoreUpdate(client)
-  scoreWeekly(client)
   updateLeaderboard(client)
 }

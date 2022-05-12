@@ -32,6 +32,11 @@ const checkSelfIntro = async (client) => {
     if (id == '948735056355139614' && content.split(" ").length>=50) {
       await selfintoSchema.updateOne({ user_Id: author.id }, { "$set": { "has_Introduced": "1" } })
       console.log(`${author.id} has successfully self introduced!`)
+      channel.send(`<@${author.id}> has successfully self introduced!`).then((message) => {
+        setTimeout(() => {
+          message.delete()
+        }, 1000 * 60)
+      })
     }
   })
 
