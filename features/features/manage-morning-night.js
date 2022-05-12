@@ -35,9 +35,9 @@ const manageGreet = async (client) => {
 
         // if next day, then is about to checkin morning again
         if (diffDay <= 0) {
-          morningCache.push(id)
+          morningCache.push(author.id)
 
-          message.reply(alreadyMorning)
+          msg.reply(alreadyMorning)
           return
         }
       } else {
