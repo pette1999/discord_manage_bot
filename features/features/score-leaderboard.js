@@ -19,7 +19,9 @@ const updateLeaderboard = async (client) => {
   }).limit(10)
   const weekly_results = await weeklyBoard.find({}).sort({
     weeklyScore: -1,
-  }).limit(10)
+  }).collation({ locale: "en_US", numericOrdering: true }).limit(10)
+
+  console.log(weekly_results)
 
   for (let counter = 0; counter < results.length; ++counter) {
     const { user_Id, user_Points = 0 } = results[counter]
