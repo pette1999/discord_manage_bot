@@ -16,7 +16,7 @@ const manageGreet = async (client) => {
     const { channel, content, author } = msg
     const username = `${author.username}#${author.discriminator}`
     var morningCount = 1
-    if(content == 'morning') {
+    if (content.toLowerCase() == 'morning') {
       if (morningCache.includes(author.id)) {
         console.log('Returning from cache')
         message.reply(alreadyMorning)
@@ -53,7 +53,7 @@ const manageGreet = async (client) => {
       })
       morningCache.push(author.id)
       msg.reply("Good Morning! :sunny:")
-    } else if (content == 'night') {
+    } else if (content.toLowerCase() == 'night') {
       if (nightCache.includes(author.id)) {
         console.log('Returning from cache')
         message.reply(alreadyNight)
