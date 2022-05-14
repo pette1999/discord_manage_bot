@@ -69,7 +69,7 @@ const manageInvites = async (client) => {
     }
   }
   setTimeout(() => {
-    updateScore(client)
+    manageInvites(client)
   }, 1000 * 60 * 360)
 }
 
