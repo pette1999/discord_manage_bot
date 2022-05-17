@@ -124,7 +124,7 @@ const makeTable = async (client) => {
     })
   }
   setTimeout(() => {
-    weeklyScore(client)
+    makeTable(client)
   }, 1000 * 60)
   // const guild = client.guilds.cache.get("948732804999553034")
   // await guild.members.fetch().then((members) => {
