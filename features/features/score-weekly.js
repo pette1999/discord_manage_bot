@@ -52,8 +52,6 @@ const weeklyScore = async (client) => {
         await weeklyBoard.updateOne({ userId: id }, { "$set": { "weeklyScore": "0" } })
       })
     })
-
-
   }
   setTimeout(() => {
     weeklyScore(client)
