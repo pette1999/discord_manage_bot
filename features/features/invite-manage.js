@@ -57,7 +57,7 @@ const manageInvites = async (client) => {
             upsert: true,
           })
           // log the checkin
-          updatePoints(`invite ${tempInviteArr_userID}`, id)
+          updatePoints(`invite ${tempInviteArr_userID}`, tempInviteArr[k]['inviter_Id'])
           // delete everything associated with this person from tempInviteArr[k] database
           await tempInviteSchema.deleteMany({ user_Id: tempInviteArr_userID })
           console.log(`Deleted ${tempInviteArr_userID} after approved`)

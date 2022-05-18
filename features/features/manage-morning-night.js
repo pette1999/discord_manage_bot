@@ -1,5 +1,6 @@
 const morningSchema = require('@schemas/morning-schema')
 const nightSchema = require('@schemas/night-schema')
+const updatePoints = require('../../util/update-points')
 
 const manageGreet = async (client) => {
   let morningCache = []
@@ -53,6 +54,8 @@ const manageGreet = async (client) => {
       })
       morningCache.push(author.id)
       msg.reply("Good Morning! :sunny:")
+      // log the checkin
+      updatePoints('morning', author.id)
     } else if (content.toLowerCase() == 'night') {
       if (nightCache.includes(author.id)) {
         console.log('Returning from cache')
@@ -114,6 +117,8 @@ const manageGreet = async (client) => {
       })
       nightCache.push(author.id)
       msg.reply("Good Evening! :crescent_moon:")
+      // log the checkin
+      updatePoints('night', author.id)
     }
   })
 }
