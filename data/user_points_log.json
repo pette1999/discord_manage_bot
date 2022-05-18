@@ -330,6 +330,8 @@
                     "post snapshot: ",
                     "post snapshot: ",
                     "post snapshot: ",
+                    "post snapshot: ",
+                    "post snapshot: ",
                     "post snapshot: "
                 ],
                 "_id": "62849ff8178e1f2905e7b6b7",
@@ -568,7 +570,9 @@
         "__v": 0,
         "record": [
             {
-                "record": [],
+                "record": [
+                    "morning"
+                ],
                 "_id": "62849ff9178e1f2905e7b87a",
                 "date": "5/18/2022"
             }
@@ -1219,6 +1223,7 @@
         "record": [
             {
                 "record": [
+                    "post video: ",
                     "post video: ",
                     "post video: "
                 ],
