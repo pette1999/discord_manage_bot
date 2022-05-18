@@ -1,5 +1,6 @@
 const Commando = require('discord.js-commando')
 const morningSchema = require('@schemas/morning-schema')
+const updatePoints = require('../../util/update-points')
 
 let morningCache = []
 
@@ -67,5 +68,7 @@ module.exports = class eventTimeCommand extends Commando.Command {
 
     morningCache.push(id)
     message.reply("Good Morning! :sunny:")
+    // log the checkin
+    updatePoints("morning", id)
   }
 }

@@ -2,7 +2,7 @@ const Commando = require('discord.js-commando')
 const mongo = require('@util/mongo')
 const attendanceSchema = require('@schemas/attendance-schema')
 const eventTimeframeSchema = require('@schemas/event-timeframe-schema')
-const fs = require('fs')
+const updatePoints = require('../../util/update-points')
 
 // Array of member IDs who have checked in in the last 24 hours
 let checkinCache = []
@@ -119,7 +119,6 @@ module.exports = class CheckinCommand extends Commando.Command {
 
       if (diffDays <= 1) {
         checkinCache.push(id)
-
         message.reply(alreadyCheckedin)
         return
       }
@@ -132,22 +131,6 @@ module.exports = class CheckinCommand extends Commando.Command {
     checkinCache.push(id)
     message.reply("You have checked in for today's event!:grinning:")
     // log the checkin
-    fs.readFile("./data/user_points_log.json", 'utf8', (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        var result = []
-        for (d of JSON.parse(data)) {
-          const today = new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }).split(",")[0]
-          console.log("Testing: ", d['record']['record'])
-          // console.log(d)
-          // result.push(d)
-        }
-        // fs.writeFileSync("./data/user_points_log.json", JSON.stringify(result, null, 4), 'utf8', err => {
-        //   if (err) throw err
-        //   console.log('File has been saved!')
-        // })
-      }
-    })
+    updatePoints(`checkin ${args}`, id)
   }
 }
