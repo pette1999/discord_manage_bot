@@ -1,8 +1,7 @@
 const Commando = require('discord.js-commando')
-const mongo = require('@util/mongo')
 const attendanceSchema = require('@schemas/attendance-schema')
 const eventTimeframeSchema = require('@schemas/event-timeframe-schema')
-const updatePoints = require('../../util/update-points')
+const updateLogs = require('../../util/update-logs')
 
 // Array of member IDs who have checked in in the last 24 hours
 let checkinCache = []
@@ -130,7 +129,7 @@ module.exports = class CheckinCommand extends Commando.Command {
 
     checkinCache.push(id)
     message.reply("You have checked in for today's event!:grinning:")
-    // log the checkin
-    updatePoints(`checkin ${args}`, id)
+    // log the checkin directly
+    updateLogs(id, `checkin ${args}`)
   }
 }

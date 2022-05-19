@@ -332,6 +332,11 @@
                     "post snapshot: ",
                     "post snapshot: ",
                     "post snapshot: ",
+                    "post snapshot: ",
+                    "post snapshot: ",
+                    "post snapshot: ",
+                    "post snapshot: ",
+                    "post snapshot: ",
                     "post snapshot: "
                 ],
                 "_id": "62849ff8178e1f2905e7b6b7",
@@ -477,6 +482,8 @@
         "record": [
             {
                 "record": [
+                    "post video: ",
+                    "post article: ",
                     "post video: ",
                     "post article: "
                 ],
@@ -1223,6 +1230,9 @@
         "record": [
             {
                 "record": [
+                    "post video: ",
+                    "post video: ",
+                    "post video: ",
                     "post video: ",
                     "post video: ",
                     "post video: "

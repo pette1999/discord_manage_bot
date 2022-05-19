@@ -1,7 +1,7 @@
 const Commando = require('discord.js-commando')
 const nightSchema = require('@schemas/night-schema')
 const morningSchema = require('@schemas/morning-schema')
-const updatePoints = require('../../util/update-points')
+const updateLogs = require('../../util/update-logs')
 
 let nightCache = []
 
@@ -97,7 +97,7 @@ module.exports = class eventTimeCommand extends Commando.Command {
 
     nightCache.push(id)
     message.reply("Good Evening! :crescent_moon:")
-    // log the checkin
-    updatePoints("night", id)
+    // log the checkin directly
+    updateLogs(id, "night")
   }
 }

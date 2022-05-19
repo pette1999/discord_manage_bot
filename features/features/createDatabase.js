@@ -87,7 +87,8 @@ const makeTable = async (client) => {
 }
 
 module.exports = async (client) => {
-  syncLogTable(client)
-  updateTimeLog(client)
-  makeTable(client)
+  // syncLogTable(client)
+  // updateTimeLog(client)
+  // makeTable(client)
+  console.log()
 }

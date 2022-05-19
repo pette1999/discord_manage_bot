@@ -1,6 +1,6 @@
 const tempInviteSchema = require('@schemas/tempInvites-schema')
 const inviteSchema = require('@schemas/invites-schema')
-const updatePoints = require('../../util/update-points')
+const updateLogs = require('../../util/update-logs')
 
 const manageInvites = async (client) => {
   const tempInviteArr = await tempInviteSchema.find()
@@ -56,8 +56,8 @@ const manageInvites = async (client) => {
           await inviteSchema.findOneAndUpdate({ userId: String(tempInviteArr[k]['inviter_Id']) }, obj, {
             upsert: true,
           })
-          // log the checkin
-          updatePoints(`invite ${tempInviteArr_userID}`, tempInviteArr[k]['inviter_Id'])
+          // log the checkin directly
+          updateLogs(tempInviteArr[k]['inviter_Id'], `invite ${tempInviteArr_userID}`)
           // delete everything associated with this person from tempInviteArr[k] database
           await tempInviteSchema.deleteMany({ user_Id: tempInviteArr_userID })
           console.log(`Deleted ${tempInviteArr_userID} after approved`)

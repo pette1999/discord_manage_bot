@@ -7,7 +7,7 @@ const voiceSchema = require('@schemas/statbotVoice-schema')
 const inviteSchema = require('@schemas/invites-schema')
 const selfintoSchema = require('@schemas/selfintro-schema')
 const postSchema = require('@schemas/socialMedia-post-schema')
-const updatePoints = require('../../util/update-points')
+const updateLogs = require('../../util/update-logs')
 
 const updateScore = async (client) => {
   var userIds = []
@@ -58,44 +58,44 @@ const updateScore = async (client) => {
       if (post['approved'] == "article") {
         for (var i = 0; i < 5; i++) approvedPosts.push(post['userId'])
         console.log("post score: ", 5)
-        // log the checkin
-        updatePoints('post article: ', post['userId'])
+        // log the checkin directly
+        updateLogs(post['userId'], "post article: ")
       } 
       if (post['approved'] == "video") {
         for (var i = 0; i < 8; i++) approvedPosts.push(post['userId'])
         console.log("post score: ", 8)
-        // log the checkin
-        updatePoints('post video: ', post['userId'])
+        // log the checkin directly
+        updateLogs(post['userId'], "post video: ")
       } 
       if (post['approved'] == "snapshot") {
         for (var i = 0; i < 2; i++) approvedPosts.push(post['userId'])
         console.log("post score: ", 2)
-        // log the checkin
-        updatePoints('post snapshot: ', post['userId'])
+        // log the checkin directly
+        updateLogs(post['userId'], "post snapshot: ")
       } 
       if (post['approved'] == "design") {
         for (var i = 0; i < 3; i++) approvedPosts.push(post['userId'])
         console.log("post score: ", 3)
-        // log the checkin
-        updatePoints('post poster design: ', post['userId'])
+        // log the checkin directly
+        updateLogs(post['userId'], "post poster design: ")
       } 
       if (post['approved'] == "deck") {
         for (var i = 0; i < 8; i++) approvedPosts.push(post['userId'])
         console.log("post score: ", 8)
-        // log the checkin
-        updatePoints('post deck: ', post['userId'])
+        // log the checkin directly
+        updateLogs(post['userId'], "post deck: ")
       } 
       if (post['approved'] == "lecture") {
         for (var i = 0; i < 10; i++) approvedPosts.push(post['userId'])
         console.log("post score: ", 10)
-        // log the checkin
-        updatePoints('post lecture video: ', post['userId'])
+        // log the checkin directly
+        updateLogs(post['userId'], "post lecture video: ")
       } 
       if (post['approved'] == "report") {
         for (var i = 0; i < 20; i++) approvedPosts.push(post['userId'])
         console.log("post score: ", 20)
-        // log the checkin
-        updatePoints('post report: ', post['userId'])
+        // log the checkin directly
+        updateLogs(post['userId'], "post report: ")
       }
     })
   }

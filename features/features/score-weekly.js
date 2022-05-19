@@ -26,6 +26,29 @@ const updateWeeklyPoints = async (client) => {
 }
 
 const weeklyScore = async (client) => {
+  // var user_score = 0
+
+  // await guild.members.fetch().then((members) => {
+  //   members.forEach(async (member) => {
+  //     const { user } = member
+  //     const { id, username, discriminator } = user
+  //     const name = `${username}#${discriminator}`
+  //     const userArr = await userinfoSchema.findOne({ user_Id: id })
+  //     userArr ? user_score = parseFloat(userArr['user_Points']) : user_score = 0
+
+  //     const obj = {
+  //       userId: id,
+  //       userName: name,
+  //       record: [{ date: new Date(), score: String(user_score) }],
+  //     }
+  //     // store the total score to the weekly-record_scores database
+  //     await weeklyRecordScore.findOneAndUpdate({ userId: id }, obj, {
+  //       upsert: true,
+  //     })
+  //     // clean up the weekly boards score
+  //     await weeklyBoard.updateOne({ userId: id }, { "$set": { "weeklyScore": "0" } })
+  //   })
+  // })
   const guild = client.guilds.cache.get("948732804999553034")
   if (new Date().getDay() == 1 && new Date().getHours() == 0 && new Date().getMinutes() == 0) {
     // every Monday at 0:00AM
