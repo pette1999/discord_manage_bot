@@ -136,7 +136,7 @@ const updateScore = async (client) => {
 
     // typeof inviteCounter[userNames[i]] != 'undefined' ? score += parseInt(inviteCounter[userNames[i]]) * 3 : score += 0
     typeof inviteCount != 'undefined' ? score += parseInt(inviteCount) * 3 : score += 0
-    typeof voiceCount != 'undefined' ? score += parseInt(voiceCount) * 0.0033 : score += 0
+    typeof voiceCount != 'undefined' ? score += parseInt(voiceCount) * 0.01 : score += 0
     typeof messageCount != 'undefined' ? score += parseInt(messageCount) * 0.05 : score += 0
     typeof attendanceTimes != 'undefined' ? score += parseInt(attendanceTimes) * 2 : score += 0
     typeof morningCount != 'undefined' ? score += parseInt(morningCount) * 0.1 : score += 0
