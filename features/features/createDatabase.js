@@ -1,5 +1,4 @@
 const pointsRecord = require('@schemas/points-log-schema')
-const fs = require('fs')
 
 const syncLogTable = async (client) => {
   const guild = client.guilds.cache.get("948732804999553034")
