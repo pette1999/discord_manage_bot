@@ -14,6 +14,7 @@ const updateScore = async (client) => {
   var userNames = []
   var roles = []
   var approvedPosts = []
+  var approvedPostsCount = []
   var inviteCounter = {}
   var invitePeople = {}
   const guild = client.guilds.cache.get("948732804999553034")
@@ -53,49 +54,58 @@ const updateScore = async (client) => {
   // fetch posts
   const postArr = await postSchema.find()
   if(postArr){
-    postArr.forEach((post) => {
+    postArr.forEach(async (post) => {
       console.log(post['approved'])
+      console.log(post['hasRewarded'])
+      console.log(post['_id'])
       if (post['approved'] == "article") {
         for (var i = 0; i < 5; i++) approvedPosts.push(post['userId'])
-        console.log("post score: ", 5)
+        approvedPostsCount.push(post['userId'])
         // log the checkin directly
-        updateLogs(post['userId'], "post article: ")
+        post['hasRewarded'] == "0" && updateLogs(post['userId'], "post article")
+        post['hasRewarded'] == "0" && await postSchema.updateOne({ _id: post['_id'] }, { hasRewarded: "1" })
       } 
       if (post['approved'] == "video") {
         for (var i = 0; i < 8; i++) approvedPosts.push(post['userId'])
-        console.log("post score: ", 8)
+        approvedPostsCount.push(post['userId'])
         // log the checkin directly
-        updateLogs(post['userId'], "post video: ")
+        post['hasRewarded'] == "0" && updateLogs(post['userId'], "post video")
+        post['hasRewarded'] == "0" && await postSchema.updateOne({ _id: post['_id'] }, { hasRewarded: "1" })
       } 
       if (post['approved'] == "snapshot") {
         for (var i = 0; i < 2; i++) approvedPosts.push(post['userId'])
-        console.log("post score: ", 2)
+        approvedPostsCount.push(post['userId'])
         // log the checkin directly
-        updateLogs(post['userId'], "post snapshot: ")
+        post['hasRewarded'] == "0" && updateLogs(post['userId'], "post snapshot")
+        post['hasRewarded'] == "0" && await postSchema.updateOne({ _id: post['_id'] }, { hasRewarded: "1" })
       } 
       if (post['approved'] == "design") {
         for (var i = 0; i < 3; i++) approvedPosts.push(post['userId'])
-        console.log("post score: ", 3)
+        approvedPostsCount.push(post['userId'])
         // log the checkin directly
-        updateLogs(post['userId'], "post poster design: ")
+        post['hasRewarded'] == "0" && updateLogs(post['userId'], "post poster design")
+        post['hasRewarded'] == "0" && await postSchema.updateOne({ _id: post['_id'] }, { hasRewarded: "1" })
       } 
       if (post['approved'] == "deck") {
         for (var i = 0; i < 8; i++) approvedPosts.push(post['userId'])
-        console.log("post score: ", 8)
+        approvedPostsCount.push(post['userId'])
         // log the checkin directly
-        updateLogs(post['userId'], "post deck: ")
+        post['hasRewarded'] == "0" && updateLogs(post['userId'], "post deck")
+        post['hasRewarded'] == "0" && await postSchema.updateOne({ _id: post['_id'] }, { hasRewarded: "1" })
       } 
       if (post['approved'] == "lecture") {
         for (var i = 0; i < 10; i++) approvedPosts.push(post['userId'])
-        console.log("post score: ", 10)
+        approvedPostsCount.push(post['userId'])
         // log the checkin directly
-        updateLogs(post['userId'], "post lecture video: ")
+        post['hasRewarded'] == "0" && updateLogs(post['userId'], "post lecture video")
+        post['hasRewarded'] == "0" && await postSchema.updateOne({ _id: post['_id'] }, { hasRewarded: "1" })
       } 
       if (post['approved'] == "report") {
         for (var i = 0; i < 20; i++) approvedPosts.push(post['userId'])
-        console.log("post score: ", 20)
+        approvedPostsCount.push(post['userId'])
         // log the checkin directly
-        updateLogs(post['userId'], "post report: ")
+        post['hasRewarded'] == "0" && updateLogs(post['userId'], "post report")
+        post['hasRewarded'] == "0" && await postSchema.updateOne({ _id: post['_id'] }, { hasRewarded: "1" })
       }
     })
   }
@@ -110,14 +120,15 @@ const updateScore = async (client) => {
     var score = 0
     var selfIntroCount = 0
     var postCount = 0
+    var postCountValue = 0
     var obj = {}
 
     approvedPosts.forEach(userID => {
       userID == userIds[i] ? postCount += 1 : postCount += 0
     })
-    if (userIds[i] == '594946541387513858') {
-      console.log("postCount: ", postCount)
-    }
+    approvedPostsCount.forEach(userID => {
+      userID == userIds[i] ? postCountValue += 1 : postCountValue += 0
+    })
     //console.log(i, ",", userIds[i], ",", userNames[i], ",", roles[i])
     const inviteArr = await inviteSchema.findOne({ userId: userIds[i] })
     inviteArr ? inviteCount = parseInt(inviteArr['invites']) : inviteCount = 0
@@ -153,6 +164,7 @@ const updateScore = async (client) => {
       user_Attendances: String(attendanceTimes || 0),
       user_Messages: String(messageCount || 0),
       user_Voices: String(voiceCount || 0),
+      user_Posts: postCountValue || 0,
       user_Points: score || 0,
     }
 

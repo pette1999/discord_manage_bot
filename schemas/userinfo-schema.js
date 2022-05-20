@@ -20,6 +20,7 @@ const userinfoSchema = mongoose.Schema(
     user_Attendances: reqString,
     user_Messages: reqString,
     user_Voices: reqString,
+    user_Posts: reqNumber,
     user_Points: reqNumber,
   }
 )

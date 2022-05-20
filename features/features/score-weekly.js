@@ -50,7 +50,7 @@ const weeklyScore = async (client) => {
   //   })
   // })
   const guild = client.guilds.cache.get("948732804999553034")
-  if (new Date().getDay() == 1 && new Date().getHours() == 0 && new Date().getMinutes() == 0) {
+  if (new Date().getDay() == 1 && new Date().getHours() - 7 == 0 && new Date().getMinutes() == 0) {
     // every Monday at 0:00AM
     var user_score = 0
 
