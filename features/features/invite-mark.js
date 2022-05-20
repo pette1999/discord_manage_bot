@@ -43,7 +43,7 @@ const markTempInvites = async (client) => {
 
     for (const inviter in invitesAfter) {
       if (invitesBefore[inviter] === invitesAfter[inviter] - 1) {
-        const channelId = '954236100434620416'
+        const channelId = '964271022616502283'
         const channel = guild.channels.cache.get(channelId)
         const count = invitesAfter[inviter]
         var inviterID = ''

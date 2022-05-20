@@ -36,6 +36,7 @@ module.exports = class UserInfoCommand extends Commando.Command {
 
     const embed = new MessageEmbed()
       .setAuthor(`User info for ${user.username}`, user.displayAvatarURL())
+      .setColor('#FFD42B')
       .addFields({
         name: 'User tag',
         value: userArr['user_Name'],

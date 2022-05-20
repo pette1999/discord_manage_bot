@@ -6,8 +6,6 @@ const messageSchema = require('@schemas/statbotMessage-schema')
 const voiceSchema = require('@schemas/statbotVoice-schema')
 const inviteSchema = require('@schemas/invites-schema')
 const selfintoSchema = require('@schemas/selfintro-schema')
-const postSchema = require('@schemas/socialMedia-post-schema')
-const updateLogs = require('../../util/update-logs')
 const fetchPosts = require('../../util/fetch-posts')
 
 const updateScore = async (client) => {
@@ -34,10 +32,6 @@ const updateScore = async (client) => {
     })
   })
 
-  // console.log("userIds: ", userIds)
-  // console.log("user_Name: ", userNames)
-  // console.log("user_Roles: ", roles)
-
   // fetch invites
   await guild.fetchInvites().then((invites) => {
     invites.forEach((invite) => {
@@ -51,7 +45,7 @@ const updateScore = async (client) => {
   })
 
   // fetch posts
-  await fetchPosts(approvedPosts, approvedPostsCount)
+  await fetchPosts(client, approvedPosts, approvedPostsCount)
   console.log(approvedPosts)
 
   for (let i=0; i<userIds.length; ++i) {
