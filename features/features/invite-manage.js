@@ -1,6 +1,7 @@
 const tempInviteSchema = require('@schemas/tempInvites-schema')
 const inviteSchema = require('@schemas/invites-schema')
 const updateLogs = require('../../util/update-logs')
+const pointsCongrats = require('../../util/points-congrats')
 
 const manageInvites = async (client) => {
   const tempInviteArr = await tempInviteSchema.find()
@@ -58,6 +59,8 @@ const manageInvites = async (client) => {
           })
           // log the checkin directly
           updateLogs(tempInviteArr[k]['inviter_Id'], `invite ${tempInviteArr_userID}`)
+          // congrats with invite
+          pointsCongrats(client, "948732804999553034", "964271022616502283", `<@${tempInviteArr[k]['inviter_Id']}> **2 BRPs** just added to your account from inviting ${tempInviteArr[k]['user_Name']}!`)
           // delete everything associated with this person from tempInviteArr[k] database
           await tempInviteSchema.deleteMany({ user_Id: tempInviteArr_userID })
           console.log(`Deleted ${tempInviteArr_userID} after approved`)
