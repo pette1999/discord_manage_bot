@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js')
 const Commando = require('discord.js-commando')
 const userinfoSchema = require('@schemas/userinfo-schema')
+const postSchema = require('@schemas/socialMedia-post-schema')
 
 module.exports = class UserInfoCommand extends Commando.Command {
   constructor(client) {
@@ -14,13 +15,19 @@ module.exports = class UserInfoCommand extends Commando.Command {
 
   async run(message) {
     const { guild, channel, member } = message
-    const { id, user, roles } = member
+    const { id, user } = member
     var obj = {}
-
-    console.log("Guild ID: ", guild.id)
-    console.log("Channel ID: ", channel.id)
+    var memberPostCount = 0
+    var pendingPostCount = 0
 
     const userArr = await userinfoSchema.findOne({ user_Id: id })
+    const postArr = await postSchema.find()
+    postArr && (
+      postArr.forEach((post) => {
+        post['userId'] == id ? memberPostCount += 1 : memberPostCount += 0
+      })
+    )
+    memberPostCount == 0 ? pendingPostCount = 0 : pendingPostCount = memberPostCount - parseInt(userArr['user_Posts'])
     if (userArr) {
       obj = {
         user_Id: String(userArr['user_Id']),
@@ -30,6 +37,7 @@ module.exports = class UserInfoCommand extends Commando.Command {
         user_Attendances: String(userArr['user_Attendances'] || 0),
         user_Messages: String(userArr['user_Messages'] || 0),
         user_Voices: String(userArr['user_Voices'] || 0),
+        user_Posts: parseInt(userArr['user_Posts']) || 0,
         user_Points: userArr['user_Points'] || 0,
       }
     }
@@ -38,12 +46,6 @@ module.exports = class UserInfoCommand extends Commando.Command {
       .setAuthor(`User info for ${user.username}`, user.displayAvatarURL())
       .setColor('#FFD42B')
       .addFields({
-        name: 'User tag',
-        value: userArr['user_Name'],
-      }, {
-        name: 'Roles',
-        value: userArr['user_Roles'],
-      }, {
         name: 'Invitation',
         value: userArr['user_Invites'] || 0,
       }, {
@@ -55,6 +57,9 @@ module.exports = class UserInfoCommand extends Commando.Command {
       }, {
         name: 'Voice Count (min)',
         value: userArr['user_Voices'] || 0,
+      }, {
+        name: 'Post Status',
+        value: memberPostCount == 0 ? 0 : `${memberPostCount} (${userArr['user_Posts']} approved, ${pendingPostCount} pending)`
       }, {
         name: 'Beta Reputation Points',
         value: userArr['user_Points'] || 0,
