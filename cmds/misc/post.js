@@ -48,6 +48,6 @@ module.exports = class postCommand extends Commando.Command {
       upsert: true,
     })
 
-    message.reply("Thank you for sharing! :fire: An admin will add BRP to your account within 48hr!\nCheck out https://dour-hope-267.notion.site/Public-Beta-Reward-System-f540ee5dd05a4842a7f9224a56d191bc for more information about Beta BRP reword system!")
+    message.reply("Thank you for sharing! :fire: An admin will add BRP to your account within 48hr!\nCheck out https://www.shorturl.at/oyU29 for more information about Beta BRP reword system!")
   }
 }
