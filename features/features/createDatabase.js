@@ -29,6 +29,14 @@ const syncLogTable = async (client) => {
 }
 
 const updateTimeLog = async (client) => {
+  // const pointsLogArr = await pointsRecord.find()
+  // const obj = {
+  //   record: [],
+  //   date: new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }).split(",")[0],
+  // }
+  // pointsLogArr.forEach(async (log) => {
+  //   await pointsRecord.updateOne({ userId: log['userId'] }, { $push: { "record": obj } })
+  // })
   if (new Date().getHours() - 7 == 0 && new Date().getMinutes() == 0) {
     const pointsLogArr = await pointsRecord.find()
     const obj = {
