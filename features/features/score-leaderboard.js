@@ -9,6 +9,12 @@ const updateLeaderboard = async (client) => {
   let text = ''
   let weekly_text = ''
   let numbers = [':one:', ':two:', ':three:', ':four:', ':five:', ':six:', ':seven:', ':eight:', ':nine:', ':keycap_ten:']
+  var totalPoints = 0
+
+  const userResult = await userinfoSchema.find()
+  userResult.forEach((user) => {
+    totalPoints += user['user_Points']
+  })
 
   await scoreUpdate(client)
   await new Promise(resolve => setTimeout(resolve, 1000 * 30))
@@ -40,6 +46,8 @@ const updateLeaderboard = async (client) => {
       weekly_text += `${numbers[counter]} - <@${userId}>: **${weeklyScore}** BRPs\n`
     }
   }
+
+  weekly_text += `Total community points are ${parseFloat(totalPoints).toFixed(2)}`
 
   const guild = client.guilds.cache.get("948732804999553034")
   if (guild) {
