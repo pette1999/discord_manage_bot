@@ -48,6 +48,6 @@ module.exports = class postCommand extends Commando.Command {
       upsert: true,
     })
 
-    message.reply("Thank you for sharing! :fire: An admin will add BRP to your account within 48hr!\nCheck out https://www.shorturl.at/oyU29 for more information about Beta BRP reword system!")
+    message.reply("Thank you for sharing! :fire: An admin will add BRP to your account within 48hr!\nCheck out https://bit.ly/3lzOfRd for more information about Beta BRP reword system!")
   }
 }
