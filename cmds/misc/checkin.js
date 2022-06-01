@@ -104,11 +104,11 @@ module.exports = class CheckinCommand extends Commando.Command {
       console.log("now: ", now)
       console.log("then: ", then)
 
-      if ((BigInt(now) >= BigInt(eventStartTime) && now <= BigInt(eventEndTime))) {
-      } else if (BigInt(now) > BigInt(eventEndTime)) {
+      if ((parseInt(now) >= parseInt(eventStartTime) && now <= parseInt(eventEndTime))) {
+      } else if (parseInt(now) > parseInt(eventEndTime)) {
         message.reply("Sorry! You missed the event :sob:")
         return
-      } else if (BigInt(now) < BigInt(eventStartTime)) {
+      } else if (parseInt(now) < parseInt(eventStartTime)) {
         message.reply("Yoo! The event hasn't started yet :blush:")
         return
       }
@@ -129,6 +129,15 @@ module.exports = class CheckinCommand extends Commando.Command {
 
     checkinCache.push(id)
     message.reply("You have checked in for today's event!:grinning:")
+    // if checkin with code vesta
+    if (args === 'vesta' || args === 'test' || args === 'test2') {
+      // add 'vesta' role to the user
+      const role = guild.roles.cache.find((role) => {
+        return role.name === 'vesta'
+      })
+      role && member.roles.add(role)
+      message.reply("You have been added to the 'vesta' role")
+    }
     // log the checkin directly
     updateLogs(id, `checkin ${args}`)
   }
