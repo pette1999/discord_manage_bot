@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/opus": "github:discordjs/opus",
     "@nastyox/rando.js": "^2.0.5",
     "commando-provider-mongo": "^1.1.1",
     "discord.js": "^12.5.3",
