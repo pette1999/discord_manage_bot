@@ -46,7 +46,7 @@ const openLottery = async (client) => {
   const channel = guild.channels.cache.get("981544158235885628")
   var members = []
   var winnerMembers = []
-  if(new Date().getHours() - 7 == 20 && new Date().getMinutes() == 5) {
+  if(new Date().getHours() - 8 == 20 && new Date().getMinutes() == 5) {
     channel && channel.members.forEach((member) => {
       const { user, _roles } = member
       const { id, username, discriminator } = user
