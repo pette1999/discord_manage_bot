@@ -130,13 +130,12 @@ module.exports = class CheckinCommand extends Commando.Command {
     checkinCache.push(id)
     message.reply("You have checked in for today's event!:grinning:")
     // if checkin with code vesta
-    if (args === 'vesta' || args === 'test' || args === 'test2') {
+    if (args === 'vesta') {
       // add 'vesta' role to the user
       const role = guild.roles.cache.find((role) => {
         return role.name === 'vesta'
       })
       role && member.roles.add(role)
-      message.reply("You have been added to the 'vesta' role")
     }
     // log the checkin directly
     updateLogs(id, `checkin ${args}`)
