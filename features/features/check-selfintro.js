@@ -3,7 +3,6 @@ const updateLogs = require('../../util/update-logs')
 
 const checkSelfIntro = async (client) => {
   const guild = client.guilds.cache.get("948732804999553034")
-  var selfIntro_ids = []
 
   client.on("message", async msg => {
     const { channel, content, author } = msg
