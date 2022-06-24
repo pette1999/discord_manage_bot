@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const reactDom = require('react-dom')
 
 const reqString = {
   type: String,

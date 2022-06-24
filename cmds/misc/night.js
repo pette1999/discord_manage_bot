@@ -96,7 +96,7 @@ module.exports = class eventTimeCommand extends Commando.Command {
     })
 
     nightCache.push(id)
-    message.reply("Good Evening! :crescent_moon:")
+    message.reply("Good Evening! :crescent_moon: \nCheck out <https://bit.ly/3lzOfRd> for more information about Beta BRP reword system!")
     // log the checkin directly
     updateLogs(id, "night")
   }

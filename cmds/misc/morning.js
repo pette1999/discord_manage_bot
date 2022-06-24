@@ -67,7 +67,7 @@ module.exports = class eventTimeCommand extends Commando.Command {
     })
 
     morningCache.push(id)
-    message.reply("Good Morning! :sunny:")
+    message.reply("Good Morning! :sunny: \nCheck out <https://bit.ly/3lzOfRd> for more information about Beta BRP reword system!")
     // log the checkin directly
     updateLogs(id, "morning")
   }

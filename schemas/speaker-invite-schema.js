@@ -5,17 +5,14 @@ const reqString = {
   required: true,
 }
 
-const socialMediaPostSchema = mongoose.Schema (
+const speakerInviteSchema = mongoose.Schema (
   {
     userId: reqString,
     userName: reqString,
-    postLink: reqString,
+    speakerRole: reqString,
+    speakerName : reqString,
     approved: reqString,
-    hasRewarded: reqString,
-    hasBonus: reqString,
-    like: reqString,
-    comment: reqString,
-    share: reqString,
+    hasRewarded: reqString
   },
   {
     timestamps: true,
