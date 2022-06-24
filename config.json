@@ -1,6 +1,0 @@
-{
-    "token": "OTY0ODY0NzI4MTA5MzAxNzYw.Ylq2TQ.sPtIWxCYei7Aoygi2_qChxLiNhE",
-    "prefix": "+",
-    "mongoPath": "mongodb+srv://haichen:Meiguo1969@cluster0.abrff.mongodb.net/?authMechanism=DEFAULT",
-    "redisPath": "redis path here"
-}
