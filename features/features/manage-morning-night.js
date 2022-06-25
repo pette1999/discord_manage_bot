@@ -53,7 +53,7 @@ const manageGreet = async (client) => {
         upsert: true,
       })
       morningCache.push(author.id)
-      msg.reply("Good Morning! :sunny: \nCheck out <https://bit.ly/3lzOfRd> for more information about Beta BRP reword system!")
+      msg.reply("Good Morning! :sunny: \nCheck out <https://bit.ly/3lzOfRd> for more information about Beta BRP reward system!")
       // log the checkin directly
       updateLogs(author.id, "morning")
     } else if (content.toLowerCase() == 'night') {
@@ -116,7 +116,7 @@ const manageGreet = async (client) => {
         upsert: true,
       })
       nightCache.push(author.id)
-      msg.reply("Good Evening! :crescent_moon: \nCheck out <https://bit.ly/3lzOfRd> for more information about Beta BRP reword system!")
+      msg.reply("Good Evening! :crescent_moon: \nCheck out <https://bit.ly/3lzOfRd> for more information about Beta BRP reward system!")
       // log the checkin directly
       updateLogs(author.id, "night")
     }
