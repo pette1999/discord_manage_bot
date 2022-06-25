@@ -2,6 +2,7 @@ const Commando = require('discord.js-commando')
 const nightSchema = require('@schemas/night-schema')
 const morningSchema = require('@schemas/morning-schema')
 const updateLogs = require('../../util/update-logs')
+const { MessageEmbed } = require('discord.js')
 
 let nightCache = []
 
