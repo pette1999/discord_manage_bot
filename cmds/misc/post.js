@@ -1,5 +1,6 @@
 const Commando = require('discord.js-commando')
 const socialMediaPostSchema = require('@schemas/socialMedia-post-schema')
+const { MessageEmbed } = require('discord.js')
 
 module.exports = class postCommand extends Commando.Command {
   constructor(client) {
