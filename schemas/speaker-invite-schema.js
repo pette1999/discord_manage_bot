@@ -19,4 +19,4 @@ const speakerInviteSchema = mongoose.Schema (
   }
 )
 
-module.exports = mongoose.model('post', socialMediaPostSchema)
+module.exports = mongoose.model('speaker_invite', speakerInviteSchema)

@@ -13,7 +13,7 @@ module.exports = class postCommand extends Commando.Command {
   }
 
   async run(message, args) {
-    const { guild, member, attachments } = message
+    const { guild, member, attachments, channel } = message
     const { id } = member
     const user = message.mentions.users.first() || message.member.user
     var pictures = ['nothing']
@@ -48,6 +48,8 @@ module.exports = class postCommand extends Commando.Command {
       upsert: true,
     })
 
-    message.reply("Thank you for sharing! :fire: An admin will add BRP to your account within 48hr!\nCheck out <https://bit.ly/3lzOfRd> for more information about Beta BRP reword system!")
+    const embed = new MessageEmbed()
+      .setDescription("Thank you for sharing! :fire: An admin will add BRP to your account within 48hr!\nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
+    channel.send(embed)
   }
 }

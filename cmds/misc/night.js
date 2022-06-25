@@ -24,7 +24,7 @@ module.exports = class eventTimeCommand extends Commando.Command {
   }
 
   async run(message) {
-    const { member } = message
+    const { member, channel } = message
     const { id } = member
     const user = member.user
     var nightCount = 1
@@ -96,7 +96,9 @@ module.exports = class eventTimeCommand extends Commando.Command {
     })
 
     nightCache.push(id)
-    message.reply("Good Evening! :crescent_moon: \nCheck out <https://bit.ly/3lzOfRd> for more information about Beta BRP reword system!")
+    const embed = new MessageEmbed("Good Evening! :crescent_moon: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
+      .setDescription()
+    channel.send(embed)
     // log the checkin directly
     updateLogs(id, "night")
   }
