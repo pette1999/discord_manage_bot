@@ -13,7 +13,7 @@ const updateLeaderboard = async (client) => {
 
   const userResult = await userinfoSchema.find()
   userResult.forEach((user) => {
-    totalPoints += user['user_Points']
+    totalPoints += parseFloat(user['user_Points'])
   })
 
   await scoreUpdate(client)
