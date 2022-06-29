@@ -17,7 +17,6 @@ module.exports = class inviteCommand extends Commando.Command {
     const { guild, member, channel } = message
     const { id, user } = member
 
-    console.log(args[0], args[1])
     if (args[0].toLowerCase() == 'mentor') {
       // user invited a mentor
       console.log(`Mentor name: ${args[1]}`)
