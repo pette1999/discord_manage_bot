@@ -16,7 +16,7 @@ const fetchPosts = async (client, approvedPosts, approvedPostsCount, speakerInvi
         eventHostsCount.push(host['userId'])
         // log the host directly
         host['hasRewarded'] == "0" && (
-          updateLogs(host['userId'], `host an event: ${eventDate}}`,
+          updateLogs(host['userId'], `host an event: ${host['eventDate']}}`,
           pointsCongrats(client, "948732804999553034", "964271022616502283", `<@${host['userId']}> **20 BRPs** just added to your account from hosting an event! :partying_face: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!`),
           await eventHostSchema.updateOne({ _id: host['_id'] }, { hasRewarded: "1" }))
         )
