@@ -16,6 +16,8 @@ const updateScore = async (client) => {
   var approvedPostsCount = []
   var speakerInvites = []
   var speakerInvitesCount = []
+  var eventHosts = []
+  var eventHostsCount = []
   var inviteCounter = {}
   var invitePeople = {}
   const guild = client.guilds.cache.get("948732804999553034")
@@ -47,8 +49,8 @@ const updateScore = async (client) => {
   })
 
   // fetch posts
-  await fetchPosts(client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount)
-  console.log("Speaker Invites: ", speakerInvites)
+  await fetchPosts(client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount)
+  console.log("Host: ", eventHosts)
 
   for (let i=0; i<userIds.length; ++i) {
     var attendanceTimes = 0
@@ -63,6 +65,8 @@ const updateScore = async (client) => {
     var postCountValue = 0
     var speakerInviteCount = 0
     var speakerInviteCountValue = 0
+    var eventHostCount = 0
+    var eventHostCountValue = 0
     var obj = {}
 
     approvedPosts.forEach(userID => {
@@ -76,6 +80,12 @@ const updateScore = async (client) => {
     })
     speakerInvitesCount.forEach(userID => {
       userID == userIds[i] ? speakerInviteCountValue += 1 : speakerInviteCountValue += 0
+    })
+    eventHosts.forEach(userID => {
+      userID == userIds[i] ? eventHostCount += 1 : eventHostCount += 0
+    })
+    eventHostsCount.forEach(userID => {
+      userID == userIds[i] ? eventHostCountValue += 1 : eventHostCountValue += 0
     })
     //console.log(i, ",", userIds[i], ",", userNames[i], ",", roles[i])
     const inviteArr = await inviteSchema.findOne({ userId: userIds[i] })
@@ -105,6 +115,8 @@ const updateScore = async (client) => {
     postCount > 0 ? score += parseInt(postCount) : score += 0
     // add points for inviting hosts or mentors
     speakerInviteCount > 0 ? score += parseInt(speakerInviteCount) : score += 0
+    // add points for hosting an event
+    eventHostCount > 0 ? score += parseInt(eventHostCount) : score += 0
     score = parseFloat(score).toFixed(2)
 
     obj = {

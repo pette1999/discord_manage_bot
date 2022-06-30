@@ -1,11 +1,28 @@
 const postSchema = require('@schemas/socialMedia-post-schema')
 const speakerInviteSchema = require('@schemas/speaker-invite-schema')
+const eventHostSchema = require('@schemas/event-host-schema')
 const updateLogs = require('./update-logs')
 const pointsCongrats = require('./points-congrats')
 
-const fetchPosts = async (client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount) => {
+const fetchPosts = async (client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount) => {
   const postArr = await postSchema.find()
   const speakerInviteArr = await speakerInviteSchema.find()
+  const eventHostArr = await eventHostSchema.find()
+
+  if(eventHostArr) {
+    eventHostArr.forEach(async (host) => {
+      if(host['approved'] == '1') {
+        for (var i=0; i<20; i++) eventHosts.push(host['userId'])
+        eventHostsCount.push(host['userId'])
+        // log the host directly
+        host['hasRewarded'] == "0" && (
+          updateLogs(host['userId'], `host an event: ${eventDate}}`,
+          pointsCongrats(client, "948732804999553034", "964271022616502283", `<@${host['userId']}> **20 BRPs** just added to your account from hosting an event! :partying_face: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!`),
+          await eventHostSchema.updateOne({ _id: host['_id'] }, { hasRewarded: "1" }))
+        )
+      }
+    })
+  }
 
   if(speakerInviteArr) {
     speakerInviteArr.forEach(async (invite) => {
@@ -101,6 +118,6 @@ const fetchPosts = async (client, approvedPosts, approvedPostsCount, speakerInvi
   }
 }
 
-module.exports = async (client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount) => {
-  fetchPosts(client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount)
+module.exports = async (client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount) => {
+  fetchPosts(client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount)
 }

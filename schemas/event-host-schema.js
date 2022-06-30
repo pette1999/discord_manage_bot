@@ -10,6 +10,11 @@ const eventHostSchema = mongoose.Schema(
     userId: reqString,
     userName: reqString,
     eventDate: reqString,
+    approved: reqString,
+    hasRewarded: reqString,
+  },
+  {
+    timestamps: true,
   }
 )
 

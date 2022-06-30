@@ -31,7 +31,9 @@ module.exports = class hostEventCommand extends Commando.Command {
     const obj = {
       userId: id,
       userName: user.tag,
-      eventDate: args
+      eventDate: args,
+      approved: '0',
+      hasRewarded: '0'
     }
 
     await eventHostSchema.findOneAndUpdate(obj, obj, {
