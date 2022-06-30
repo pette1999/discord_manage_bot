@@ -50,7 +50,7 @@ const updateScore = async (client) => {
 
   // fetch posts
   await fetchPosts(client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount)
-  console.log("Host: ", eventHosts)
+  console.log("Speaker Invites: ", speakerInvites)
 
   for (let i=0; i<userIds.length; ++i) {
     var attendanceTimes = 0
