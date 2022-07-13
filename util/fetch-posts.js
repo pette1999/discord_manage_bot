@@ -1,13 +1,26 @@
 const postSchema = require('@schemas/socialMedia-post-schema')
 const speakerInviteSchema = require('@schemas/speaker-invite-schema')
 const eventHostSchema = require('@schemas/event-host-schema')
+const feedbackSchema = require('@schemas/feedback-schema')
 const updateLogs = require('./update-logs')
 const pointsCongrats = require('./points-congrats')
 
-const fetchPosts = async (client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount) => {
+const fetchPosts = async (client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount, feedbacks, feedbacksCount) => {
   const postArr = await postSchema.find()
   const speakerInviteArr = await speakerInviteSchema.find()
   const eventHostArr = await eventHostSchema.find()
+  const feedbackArr = await feedbackSchema.find()
+
+  if(feedbackArr) {
+    feedbackArr.forEach(async (feedback) => {
+      if(feedback['approved'] == '1') {
+        for (var i=0; i<2; i++) feedbacks.push(host['userId'])
+        feedbacksCount.push(feedback['userId'])
+        // log the feedback directly
+        
+      }
+    })
+  }
 
   if(eventHostArr) {
     eventHostArr.forEach(async (host) => {
@@ -118,6 +131,6 @@ const fetchPosts = async (client, approvedPosts, approvedPostsCount, speakerInvi
   }
 }
 
-module.exports = async (client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount) => {
-  fetchPosts(client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount)
+module.exports = async (client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount, feedback, feedbackCount) => {
+  fetchPosts(client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount, feedback, feedbackCount)
 }

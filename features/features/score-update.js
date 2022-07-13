@@ -18,6 +18,8 @@ const updateScore = async (client) => {
   var speakerInvitesCount = []
   var eventHosts = []
   var eventHostsCount = []
+  var feedbacks = []
+  var feedbacksCount = []
   var inviteCounter = {}
   var invitePeople = {}
   const guild = client.guilds.cache.get("948732804999553034")
@@ -49,7 +51,7 @@ const updateScore = async (client) => {
   })
 
   // fetch posts
-  await fetchPosts(client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount)
+  await fetchPosts(client, approvedPosts, approvedPostsCount, speakerInvites, speakerInvitesCount, eventHosts, eventHostsCount, feedbacks, feedbacksCount)
   console.log("Speaker Invites: ", speakerInvites)
 
   for (let i=0; i<userIds.length; ++i) {
@@ -67,6 +69,8 @@ const updateScore = async (client) => {
     var speakerInviteCountValue = 0
     var eventHostCount = 0
     var eventHostCountValue = 0
+    var feedbackCount = 0
+    var feedbackCountValue = 0
     var obj = {}
 
     approvedPosts.forEach(userID => {
@@ -87,10 +91,17 @@ const updateScore = async (client) => {
     eventHostsCount.forEach(userID => {
       userID == userIds[i] ? eventHostCountValue += 1 : eventHostCountValue += 0
     })
+    feedbacks.forEach(userID => {
+      userID == userIds[i] ? feedbackCount += 1 : feedbackCount += 0
+    })
+    feedbacksCount.forEach(userID => {
+      userID == userIds[i] ? feedbackCountValue += 1 : feedbackCountValue += 0
+    })
     //console.log(i, ",", userIds[i], ",", userNames[i], ",", roles[i])
     const inviteArr = await inviteSchema.findOne({ userId: userIds[i] })
     inviteArr ? inviteCount = parseInt(inviteArr['invites']) : inviteCount = 0
     const attendanceArr = await attendanceSchema.findOne({ userId: userIds[i] }).distinct('attendance')
+    attendanceArr.includes("Bootcamp") ? score += 8 : score += 0
     attendanceTimes = attendanceArr.length
     const messageArr = await messageSchema.findOne({ userId: userIds[i] })
     messageArr ? messageCount = parseInt(messageArr['messageCount']) : messageCount = 0
@@ -102,6 +113,8 @@ const updateScore = async (client) => {
     night ? nightCount = parseInt(night['nightCount']) : nightCount = 0
     const selfIntro = await selfintoSchema.findOne({ user_Id: userIds[i] })
     selfIntro ? selfIntroCount = parseInt(selfIntro['has_Introduced']) : selfIntroCount = 0
+
+    // for using the checkin code Bootcamp
 
     // typeof inviteCounter[userNames[i]] != 'undefined' ? score += parseInt(inviteCounter[userNames[i]]) * 3 : score += 0
     typeof inviteCount != 'undefined' ? score += parseInt(inviteCount) * 2 : score += 0
