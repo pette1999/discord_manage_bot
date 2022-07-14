@@ -54,9 +54,9 @@ module.exports = class onboardCommand extends Commando.Command {
       })
 
       onboardCache.push(id)
-      console.log("hahah")
       const embed2 = new MessageEmbed("Welcome Onboard! :sunny: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
         .setDescription()
+      console.log("hahah")
       channel.send(embed2)
       // log the checkin directly
       updateLogs(id, "onboard")
