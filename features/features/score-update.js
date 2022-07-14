@@ -116,7 +116,7 @@ const updateScore = async (client) => {
     const selfIntro = await selfintoSchema.findOne({ user_Id: userIds[i] })
     selfIntro ? selfIntroCount = parseInt(selfIntro['has_Introduced']) : selfIntroCount = 0
     const onBoard = await onboardSchema.findOne({ userId: userIds[i] })
-    onBoard ? console.log("Test:", onBoard.onboard) : onboardStatus = 0
+    onBoard ? onboardStatus = parseInt(onBoard['onboard']) : onboardStatus = 0
 
     // for using the checkin code Bootcamp
 
@@ -128,6 +128,7 @@ const updateScore = async (client) => {
     typeof morningCount != 'undefined' ? score += parseInt(morningCount) * 0.1 : score += 0
     typeof nightCount != 'undefined' ? score += parseInt(nightCount) * 0.1 : score += 0
     typeof selfIntroCount != 'undefined' ? score += parseInt(selfIntroCount) * 5 : score += 0
+    typeof onboardStatus != 'undefined' ? score += parseInt(onboardStatus) * 20 : score += 0
     // add points for posts
     postCount > 0 ? score += parseInt(postCount) : score += 0
     // add points for inviting hosts or mentors
