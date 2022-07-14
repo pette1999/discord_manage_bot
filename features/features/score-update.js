@@ -7,6 +7,7 @@ const voiceSchema = require('@schemas/statbotVoice-schema')
 const inviteSchema = require('@schemas/invites-schema')
 const selfintoSchema = require('@schemas/selfintro-schema')
 const fetchPosts = require('../../util/fetch-posts')
+const onboardSchema = require('@schemas/onboard-schema')
 
 const updateScore = async (client) => {
   var userIds = []
@@ -63,6 +64,7 @@ const updateScore = async (client) => {
     var inviteCount = 0
     var score = 0
     var selfIntroCount = 0
+    var onboardStatus = 0
     var postCount = 0
     var postCountValue = 0
     var speakerInviteCount = 0
@@ -113,6 +115,9 @@ const updateScore = async (client) => {
     night ? nightCount = parseInt(night['nightCount']) : nightCount = 0
     const selfIntro = await selfintoSchema.findOne({ user_Id: userIds[i] })
     selfIntro ? selfIntroCount = parseInt(selfIntro['has_Introduced']) : selfIntroCount = 0
+    const onBoard = await onboardSchema.findOne({ userId: userIds[i] })
+    onBoard ? onboardStatus = parseInt(onBoard['onboard']) : onboardStatus = 0
+    console.log("Test:", onBoard['onboard'])
 
     // for using the checkin code Bootcamp
 
