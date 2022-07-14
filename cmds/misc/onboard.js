@@ -38,9 +38,9 @@ module.exports = class onboardCommand extends Commando.Command {
     const status = await onboardSchema.findOne({ userId: id })
     status ? onBoardStatus = status.onboard : onBoardStatus = 0
     if (onBoardStatus == 1) {
-      const embed = new MessageEmbed("You have already onboard. :man_tipping_hand: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
+      const embed3 = new MessageEmbed("You have already onboard. :man_tipping_hand: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
         .setDescription()
-      channel.send(embed)
+      channel.send(embed3)
       return
     } else {
       const obj = {
