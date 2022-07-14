@@ -116,7 +116,7 @@ const updateScore = async (client) => {
     const selfIntro = await selfintoSchema.findOne({ user_Id: userIds[i] })
     selfIntro ? selfIntroCount = parseInt(selfIntro['has_Introduced']) : selfIntroCount = 0
     const onBoard = await onboardSchema.findOne({ userId: userIds[i] })
-    onBoard ? console.log("Test:", onBoard['onboard']) : onboardStatus = 0
+    onBoard ? console.log("Test:", onBoard.onboard) : onboardStatus = 0
 
     // for using the checkin code Bootcamp
 
