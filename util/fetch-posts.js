@@ -11,16 +11,16 @@ const fetchPosts = async (client, approvedPosts, approvedPostsCount, speakerInvi
   const eventHostArr = await eventHostSchema.find()
   const feedbackArr = await feedbackSchema.find()
 
-  if(feedbackArr) {
-    feedbackArr.forEach(async (feedback) => {
-      if(feedback['approved'] == '1') {
-        for (var i=0; i<2; i++) feedbacks.push(host['userId'])
-        feedbacksCount.push(feedback['userId'])
-        // log the feedback directly
+  // if(feedbackArr) {
+  //   feedbackArr.forEach(async (feedback) => {
+  //     if(feedback['approved'] == '1') {
+  //       for (var i=0; i<2; i++) feedbacks.push(host['userId'])
+  //       feedbacksCount.push(feedback['userId'])
+  //       // log the feedback directly
         
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
   if(eventHostArr) {
     eventHostArr.forEach(async (host) => {
