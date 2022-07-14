@@ -29,18 +29,14 @@ module.exports = class onboardCommand extends Commando.Command {
 
     if (onboardCache.includes(id)) {
       console.log('Returning from cache')
-      const embed = new MessageEmbed("{+onboard} command too frequently. :face_with_monocle: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
-        .setDescription()
-      channel.send(embed)
+      message.reply("{+onboard} command too frequently. :face_with_monocle: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
       return
     }
 
     const status = await onboardSchema.findOne({ userId: id })
     status ? onBoardStatus = status.onboard : onBoardStatus = 0
     if (onBoardStatus == 1) {
-      const embed3 = new MessageEmbed("You have already onboard. :man_tipping_hand: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
-        .setDescription()
-      channel.send(embed3)
+      message.reply("You have already onboard. :man_tipping_hand: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
       return
     } else {
       const obj = {
