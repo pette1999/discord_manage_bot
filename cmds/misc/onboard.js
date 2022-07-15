@@ -27,15 +27,15 @@ module.exports = class onboardCommand extends Commando.Command {
     const { id } = member
     const user = member.user
     var onBoardStatus = []
-    var role = ""
+    var roleName = ""
 
     // if input without code, unable to check in
     if (args.toLowerCase() == 'founder') {
-      role = "Founder"
+      roleName = "Founder"
     } else if (args.toLowerCase() == 'pre-founder') {
-      role = "Pre-Founder"
+      roleName = "Pre-Founder"
     } else if (args.toLowerCase() == 'vc') {
-      role = "VC"
+      roleName = "VC"
     } else {
       message.reply("Wrong command, please add a role to onboard :wink:")
       return
@@ -94,7 +94,7 @@ module.exports = class onboardCommand extends Commando.Command {
         .setDescription(`Welcome Onboard ${args.toLowerCase()} <@${id}> ! 20 BRPs have been added to your account. :sunny: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!`)
       channel.send(embed)
       const role = guild.roles.cache.find((role) => {
-        return role.name === role
+        return role.name === roleName
       })
       role && member.roles.add(role)
       console.log("added a role")
