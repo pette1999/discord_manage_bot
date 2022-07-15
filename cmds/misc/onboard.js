@@ -74,7 +74,7 @@ module.exports = class onboardCommand extends Commando.Command {
       channel.send(embed3)
       return
     } else {
-      onBoardStatus.append(args.toLowerCase())
+      onBoardStatus.push(args.toLowerCase())
       const obj = {
         userId: id,
         userName: user.tag,
