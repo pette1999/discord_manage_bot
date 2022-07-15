@@ -87,7 +87,7 @@ module.exports = class onboardCommand extends Commando.Command {
 
       onboardCache.push(id)
       const embed = new MessageEmbed()
-        .setDescription("Welcome Onboard! :sunny: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
+        .setDescription(`Welcome Onboard ${args.toLowerCase()} <@${id}> ! 20 BRPs have been added to your account. :sunny: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!`)
       channel.send(embed)
       const role = guild.roles.cache.find((role) => {
         return role.name === args.toLowerCase()
