@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
-const reqNumber = {
-  type: Number,
+const reqArray = {
+  type: [String],
   required: true,
 }
 
@@ -14,7 +14,7 @@ const onboardSchema = mongoose.Schema(
   {
     userId: reqString,
     userName: reqString,
-    onboard: reqNumber,
+    onboard: reqArray,
   },
   {
     timestamps: true,

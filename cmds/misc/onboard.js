@@ -17,15 +17,25 @@ module.exports = class onboardCommand extends Commando.Command {
       name: 'onboard',
       group: 'misc',
       memberName: 'onboard',
+      argsType: 'single',
       description: 'Finished the onboarding',
     })
   }
 
-  async run(message) {
+  async run(message, args) {
     const { member, channel } = message
     const { id } = member
     const user = member.user
-    var onBoardStatus = 0
+    var onBoardRoles = []
+
+    // if input without code, unable to check in
+    if (args.toLowerCase() == 'founder') {
+    } else if (args.toLowerCase() == 'pre-founder') {
+    } else if (args.toLowerCase() == 'vc') {
+    } else {
+      message.reply("Wrong command, please add a role to onboard :wink:")
+      return
+    }
 
     if (onboardCache.includes(id)) {
       console.log('Returning from cache')
@@ -57,17 +67,18 @@ module.exports = class onboardCommand extends Commando.Command {
     }
 
     const status = await onboardSchema.findOne({ userId: id })
-    status ? onBoardStatus = status.onboard : onBoardStatus = 0
-    if (onBoardStatus == 1) {
+    status ? onBoardStatus = status.onboard : onBoardStatus = []
+    if (onBoardStatus.includes(args.toLowerCase())) {
       const embed3 = new MessageEmbed()
         .setDescription("You have already onboard. :man_tipping_hand: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
       channel.send(embed3)
       return
     } else {
+      onBoardStatus.append(args.toLowerCase())
       const obj = {
         userId: id,
         userName: user.tag,
-        onboard: 1,
+        onboard: onBoardStatus,
       }
 
       await onboardSchema.findOneAndUpdate({ userId: id }, obj, {
@@ -79,10 +90,10 @@ module.exports = class onboardCommand extends Commando.Command {
         .setDescription("Welcome Onboard! :sunny: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
       channel.send(embed)
       const role = guild.roles.cache.find((role) => {
-        return role.name === 'founder'
+        return role.name === args.toLowerCase()
       })
       role && member.roles.add(role)
-      console.log("added a founder马甲")
+      console.log("added a role")
       // log the checkin directly
       updateLogs(id, "onboard")
     }
