@@ -26,7 +26,7 @@ module.exports = class onboardCommand extends Commando.Command {
     const { member, channel } = message
     const { id } = member
     const user = member.user
-    var onBoardRoles = []
+    var onBoardStatus = []
 
     // if input without code, unable to check in
     if (args.toLowerCase() == 'founder') {
