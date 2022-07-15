@@ -35,6 +35,27 @@ module.exports = class onboardCommand extends Commando.Command {
       return
     }
 
+    try {
+      const messages = await channel.messages.fetch(0)
+
+      let i = 0
+      const filtered = []
+      messages.filter((m) => {
+        if (m.author.id === id && 1 > i) {
+          filtered.push(m)
+          i++
+        }
+      })
+      await channel.bulkDelete(filtered, true).then(messages => {
+        console.log("message deleted")
+      })
+    } catch (err) {
+      console.error(err)
+      channel.send(
+        '```css\n[ERROR] ' + err.code + ': [' + err.message + ']\n```'
+      )
+    }
+
     const status = await onboardSchema.findOne({ userId: id })
     status ? onBoardStatus = status.onboard : onBoardStatus = 0
     if (onBoardStatus == 1) {
