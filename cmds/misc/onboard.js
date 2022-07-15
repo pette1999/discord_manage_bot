@@ -78,6 +78,11 @@ module.exports = class onboardCommand extends Commando.Command {
       const embed = new MessageEmbed()
         .setDescription("Welcome Onboard! :sunny: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
       channel.send(embed)
+      const role = guild.roles.cache.find((role) => {
+        return role.name === 'founder'
+      })
+      role && member.roles.add(role)
+      console.log("added a founder马甲")
       // log the checkin directly
       updateLogs(id, "onboard")
     }
