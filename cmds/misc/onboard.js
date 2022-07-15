@@ -23,7 +23,7 @@ module.exports = class onboardCommand extends Commando.Command {
   }
 
   async run(message, args) {
-    const { member, channel } = message
+    const { guild, member, channel } = message
     const { id } = member
     const user = member.user
     var onBoardStatus = []
