@@ -34,6 +34,8 @@ module.exports = class onboardCommand extends Commando.Command {
       roleName = "Founder"
     } else if (args.toLowerCase() == 'pre-founder') {
       roleName = "Pre-Founder"
+    } else if (args.toLowerCase() == 'innovator') {
+      roleName = "Innovator"
     } else if (args.toLowerCase() == 'vc') {
       roleName = "VC"
     } else {
