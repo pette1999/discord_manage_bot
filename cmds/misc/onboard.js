@@ -46,7 +46,7 @@ module.exports = class onboardCommand extends Commando.Command {
     if (onboardCache.includes(id)) {
       console.log('Returning from cache')
       const embed2 = new MessageEmbed()
-        .setDescription("{+onboard} command too frequently. :face_with_monocle: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
+        .setDescription("{+onboard} command too frequently. :face_with_monocle: \nCheck out [Beta BRP reward system](https://bit.ly/3yPIuF9) for more information about Beta Rewarding System!")
       channel.send(embed2)
       return
     }
@@ -76,7 +76,7 @@ module.exports = class onboardCommand extends Commando.Command {
     status ? onBoardStatus = status.onboard : onBoardStatus = []
     if (onBoardStatus.includes(args.toLowerCase())) {
       const embed3 = new MessageEmbed()
-        .setDescription("You have already onboard. :man_tipping_hand: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
+        .setDescription("You have already onboard. :man_tipping_hand: \nCheck out [Beta BRP reward system](https://bit.ly/3yPIuF9) for more information about Beta Rewarding System!")
       channel.send(embed3)
       return
     } else {
@@ -93,7 +93,7 @@ module.exports = class onboardCommand extends Commando.Command {
 
       onboardCache.push(id)
       const embed = new MessageEmbed()
-        .setDescription(`Welcome Onboard ${args.toLowerCase()} <@${id}> ! 20 BRPs have been added to your account. :sunny: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!`)
+        .setDescription(`Welcome Onboard ${args.toLowerCase()} <@${id}> ! 20 BRPs have been added to your account. :sunny: \nCheck out [Beta BRP reward system](https://bit.ly/3yPIuF9) for more information about Beta Rewarding System!`)
       channel.send(embed)
       const role = guild.roles.cache.find((role) => {
         return role.name === roleName

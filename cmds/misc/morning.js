@@ -69,7 +69,7 @@ module.exports = class eventTimeCommand extends Commando.Command {
 
     morningCache.push(id)
     const embed = new MessageEmbed()
-      .setDescription("Good Morning! :sunny: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
+      .setDescription("Good Morning! :sunny: \nCheck out [Beta BRP reward system](https://bit.ly/3yPIuF9) for more information about Beta Rewarding System!")
     channel.send(embed)
     // log the checkin directly
     updateLogs(id, "morning")

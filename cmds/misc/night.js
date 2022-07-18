@@ -97,7 +97,7 @@ module.exports = class eventTimeCommand extends Commando.Command {
     })
 
     nightCache.push(id)
-    const embed = new MessageEmbed("Good Evening! :crescent_moon: \nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
+    const embed = new MessageEmbed("Good Evening! :crescent_moon: \nCheck out [Beta BRP reward system](https://bit.ly/3yPIuF9) for more information about Beta Rewarding System!")
       .setDescription()
     channel.send(embed)
     // log the checkin directly

@@ -46,7 +46,7 @@ module.exports = class inviteCommand extends Commando.Command {
     })
 
     const embed = new MessageEmbed()
-      .setDescription("Thank you for inviting! :fire: An admin will add BRP to your account within 48hr!\nCheck out [Beta BRP reward system](https://bit.ly/3lzOfRd) for more information about Beta Rewarding System!")
+      .setDescription("Thank you for inviting! :fire: An admin will add BRP to your account within 48hr!\nCheck out [Beta BRP reward system](https://bit.ly/3yPIuF9) for more information about Beta Rewarding System!")
     channel.send(embed)
   }
 }
