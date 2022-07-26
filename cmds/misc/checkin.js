@@ -128,8 +128,13 @@ module.exports = class CheckinCommand extends Commando.Command {
     })
 
     checkinCache.push(id)
-    args == "Bootcamp" ? message.reply("Congrats! You have earned 20 BRPs for completing Beta Crypto Bootcamp!:grinning: \nCheck out <https://bit.ly/3yPIuF9> for more information about Beta BRP reword system!") : message.reply("You have checked in for today's event!:grinning: \nCheck out <https://bit.ly/3yPIuF9> for more information about Beta BRP reword system!")
-    args == "summerfellow" ? message.reply("Congrats! You have earned 10 BRPs for attending Beta Summer Fellow!:grinning: \nCheck out <https://bit.ly/3yPIuF9> for more information about Beta BRP reword system!") : message.reply("You have checked in for today's event!:grinning: \nCheck out <https://bit.ly/3yPIuF9> for more information about Beta BRP reword system!")
+    if(args == "Bootcamp") {
+      message.reply("Congrats! You have earned 20 BRPs for completing Beta Crypto Bootcamp!:grinning: \nCheck out <https://bit.ly/3yPIuF9> for more information about Beta BRP reword system!")
+    } else if(args == "summerfellow") {
+      message.reply("Congrats! You have earned 10 BRPs for attending Beta Summer Fellow!:grinning: \nCheck out <https://bit.ly/3yPIuF9> for more information about Beta BRP reword system!")
+    } else {
+      message.reply("You have checked in for today's event!:grinning: \nCheck out <https://bit.ly/3yPIuF9> for more information about Beta BRP reword system!")
+    }
     // if checkin with code vesta
     // if (args === 'vesta') {
     //   // add 'vesta' role to the user
