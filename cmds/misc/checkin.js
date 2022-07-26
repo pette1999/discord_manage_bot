@@ -40,11 +40,11 @@ module.exports = class CheckinCommand extends Commando.Command {
       return
     }
 
-    if (checkinCache.includes(id)) {
-      console.log('Returning from cache')
-      message.reply(alreadyCheckedin)
-      return
-    }
+    // if (checkinCache.includes(id)) {
+    //   console.log('Returning from cache')
+    //   message.reply(alreadyCheckedin)
+    //   return
+    // }
 
     console.log('Fetching from mongo')
 
