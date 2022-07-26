@@ -116,11 +116,11 @@ module.exports = class CheckinCommand extends Commando.Command {
       const diffTime = Math.abs(now - then)
       const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24))
 
-      if (diffDays <= 1) {
-        checkinCache.push(id)
-        message.reply(alreadyCheckedin)
-        return
-      }
+      // if (diffDays <= 1) {
+      //   checkinCache.push(id)
+      //   message.reply(alreadyCheckedin)
+      //   return
+      // }
     }
 
     await attendanceSchema.findOneAndUpdate({ userId: id }, obj, {
