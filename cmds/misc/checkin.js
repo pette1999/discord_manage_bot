@@ -116,11 +116,11 @@ module.exports = class CheckinCommand extends Commando.Command {
       const diffTime = Math.abs(now - then)
       const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24))
 
-      // if (diffDays <= 1) {
-      //   checkinCache.push(id)
-      //   message.reply(alreadyCheckedin)
-      //   return
-      // }
+      if (diffDays <= 1) {
+        checkinCache.push(id)
+        message.reply(alreadyCheckedin)
+        return
+      }
     }
 
     await attendanceSchema.findOneAndUpdate({ userId: id }, obj, {
@@ -128,7 +128,6 @@ module.exports = class CheckinCommand extends Commando.Command {
     })
 
     checkinCache.push(id)
-    summerfellow = ''
     args == "Bootcamp" ? message.reply("Congrats! You have earned 20 BRPs for completing Beta Crypto Bootcamp!:grinning: \nCheck out <https://bit.ly/3yPIuF9> for more information about Beta BRP reword system!") : message.reply("You have checked in for today's event!:grinning: \nCheck out <https://bit.ly/3yPIuF9> for more information about Beta BRP reword system!")
     args == "summerfellow" ? message.reply("Congrats! You have earned 10 BRPs for attending Beta Summer Fellow!:grinning: \nCheck out <https://bit.ly/3yPIuF9> for more information about Beta BRP reword system!") : message.reply("You have checked in for today's event!:grinning: \nCheck out <https://bit.ly/3yPIuF9> for more information about Beta BRP reword system!")
     // if checkin with code vesta
