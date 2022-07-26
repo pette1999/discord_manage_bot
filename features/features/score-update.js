@@ -104,6 +104,7 @@ const updateScore = async (client) => {
     inviteArr ? inviteCount = parseInt(inviteArr['invites']) : inviteCount = 0
     const attendanceArr = await attendanceSchema.findOne({ userId: userIds[i] }).distinct('attendance')
     attendanceArr.includes("2022-07-13") ? score += 8 : score += 0
+    attendanceArr.includes("2022-07-26") ? score += 8 : score += 0
     attendanceTimes = attendanceArr.length
     const messageArr = await messageSchema.findOne({ userId: userIds[i] })
     messageArr ? messageCount = parseInt(messageArr['messageCount']) : messageCount = 0
